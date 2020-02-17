@@ -41,7 +41,7 @@ def vessels():
 
 
 
-def lace(x, y, lace_size):
+def lace(x, y, lace_index, lace_size, laces):
     """
     Represent the neural lace you will be performing surgery with
     
@@ -49,7 +49,9 @@ def lace(x, y, lace_size):
         lace_size: size of the lace on screen
         lace_coordinates: the x, y posistion of the lace on screen
     """
-    # Render the lace on screen
+    # list of tuples of laces 
+    for each_lace in laces:
+        pygame.draw.rect(game_display, blue, [each_lace[0], each_lace[1], lace_size, lace_size])
 
 
 
@@ -83,6 +85,8 @@ def game_loop():
     game_exit = False
     game_over = False
 
+    # All of the threads on screen
+    laces = []
 
     # X AND Y COORDS OF THE LACE
     x = display_width / 2
@@ -92,6 +96,7 @@ def game_loop():
     y_change = 0
 
     lace_counter = 10
+    lace_index = 0
     
 
     while not game_exit:
@@ -135,10 +140,11 @@ def game_loop():
                     y_change = lace_size # positive y = down
                     x_change = 0
                 elif event.key == pygame.K_BACKSPACE:
-                    """
-                    DIAGRAM THIS FUNCTIONALITY
-                    """
                     print("Backspace key pressed")
+                    lace_counter -= 1
+                    lace_index += 1
+                    laces.append([x, y])
+                    
 
             """### STOP MOVING WHEN KEY IS RELEASED ###"""
             if event.type == pygame.KEYUP:
@@ -163,16 +169,15 @@ def game_loop():
             
 
         """UPDATE POSISTION OF LACE BASED OFF PLAYER INPUT"""
-        # Set posistion to velocity
+        # Set posistion based on velocity
         x += x_change
-
         y += y_change
+        current_lace = [x, y]
 
         # We have to render the background first since layers are in order from furthest to closest
         game_display.fill(white)
         """### FUNCTIONALIZE THIS ###"""
-        print("%s, %s" % (x, y))
-        pygame.draw.rect(game_display, blue, [x, y, lace_size, lace_size])
+        
 
 
         """MAIN GAME ITEMS"""
