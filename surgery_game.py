@@ -63,6 +63,11 @@ def score():
     pass
 
 
+def text_objects(text, color):
+    text_surface = font.render(text, True, color)
+    return text_surface, text_surface.get_rect()
+
+
 def message_to_screen(msg, color, y_displace=0, size='small'):
     """Display a message on the screen!"""
     # surface object and the rectangle "shape"
@@ -86,7 +91,7 @@ def game_loop():
     x_change = 0
     y_change = 0
 
-    thread_counter = 10
+    lace_counter = 10
     
 
     while not game_exit:
@@ -118,17 +123,37 @@ def game_loop():
             """### MOVEMENT ###"""
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    x_change = -10
+                    x_change = -lace_size
+                    y_change = 0
                 elif event.key == pygame.K_RIGHT:
-                    x_change = 10
+                    x_change = lace_size
+                    y_change = 0
                 elif event.key == pygame.K_UP:
-                    y_change = -10 # negative y = up in pygame
+                    y_change = -lace_size # negative y = up in pygame
+                    x_change = 0
                 elif event.key == pygame.K_DOWN:
-                    y_change = 10 # positive y = down
-                elif event.key == pygame.K_KP_ENTER:
-                    thread_counter -= 1
-                    ### FUNCTIONALIZE THIS ###
-                    pygame.draw.rect(game_display, blue, [x, y, lace_size, lace_size])
+                    y_change = lace_size # positive y = down
+                    x_change = 0
+                elif event.key == pygame.K_BACKSPACE:
+                    """
+                    DIAGRAM THIS FUNCTIONALITY
+                    """
+                    print("Backspace key pressed")
+
+            """### STOP MOVING WHEN KEY IS RELEASED ###"""
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_LEFT:
+                    x_change = 0
+                    y_change = 0
+                elif event.key == pygame.K_RIGHT:
+                    x_change = 0
+                    y_change = 0
+                elif event.key == pygame.K_UP:
+                    y_change = 0 # negative y = up in pygame
+                    x_change = 0
+                elif event.key == pygame.K_DOWN:
+                    y_change = 0 # positive y = down
+                    x_change = 0
                 
 
             
@@ -140,14 +165,13 @@ def game_loop():
         """UPDATE POSISTION OF LACE BASED OFF PLAYER INPUT"""
         # Set posistion to velocity
         x += x_change
-        x_change = 0 # Reset velocity to 0 after each move
 
         y += y_change
-        y_change = 0 # Reset velocity to 0 after each move
 
         # We have to render the background first since layers are in order from furthest to closest
         game_display.fill(white)
         """### FUNCTIONALIZE THIS ###"""
+        print("%s, %s" % (x, y))
         pygame.draw.rect(game_display, blue, [x, y, lace_size, lace_size])
 
 
