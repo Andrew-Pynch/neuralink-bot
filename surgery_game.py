@@ -7,7 +7,7 @@ pygame.init()
 
 # Set the window size
 display_width = 800
-display_height = 600
+display_height = 800
 game_display = pygame.display.set_mode((display_width, display_height))
 
 # Set window title
@@ -21,22 +21,38 @@ green = (0, 155, 0)
 blue = (0, 0, 155)
 
 
+####################
+"""GAME VARIABLES"""
+####################
 FPS = 15
 clock = pygame.time.Clock()
 
 # Font
 font = pygame.font.SysFont(None, 25)
 
+# Size of the neural lace on screen
+lace_size = 20
+lace_coordinates = [0, 0]
+
 
 ### N0TE: ALL THESE FUNCTIONS ARE JUST A GUESS AT WHAT THE STRUCTURE OF THE PROGRAM WILL BE... ###
-def vessels():
+def vessels(lace_size, lace_coordinates):
     """Create pygame representation of blood vessels"""
-    pass
+
 
 
 def lace():
-    """Represent the neural lace you will be performing surgery with"""
-    pass
+    """
+    Represent the neural lace you will be performing surgery with
+    
+    PARAMETERS:
+        lace_size: size of the lace on screen
+        lace_coordinates: the x, y posistion of the lace on screen
+    """
+    # Render the lace on screen
+    for x_y in lace_coordinates:
+                                            # x,      # y     # width    # height
+        pygame.draw.rect(game_display, blue, [x_y[0], x_y[1], lace_size, lace_size])
 
 
 def score():
@@ -49,6 +65,7 @@ def score():
 
 
 def message_to_screen(msg, color, y_displace=0, size='small'):
+    """Display a message on the screen!"""
     # surface object and the rectangle "shape"
     text_surface, text_rect = text_objects(msg, red)
     
@@ -58,8 +75,12 @@ def message_to_screen(msg, color, y_displace=0, size='small'):
 
 
 def game_loop():
+    """The main loop of the neuralink surgery simulator"""
     game_exit = False
     game_over = False
+
+    lace_coordinates[0] = display_width / 2
+    lace_coordinates[1] = display_height / 2
 
     while not game_exit:
         while game_over == True:
@@ -103,3 +124,6 @@ def game_loop():
     quit
 
 
+
+# Start the game!
+game_loop()
