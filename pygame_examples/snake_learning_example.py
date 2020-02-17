@@ -13,6 +13,9 @@ game_display = pygame.display.set_mode((display_width, display_height))
 # Game requires a "title"
 pygame.display.set_caption("Snake")
 
+# Get the picture of the snakehead we created
+image = pygame.image.load('snake.jpg')
+
 # Explitily define some RGB Colors
 white = (255, 255, 255)
 black = (0, 0, 0)
@@ -30,17 +33,42 @@ clock = pygame.time.Clock()
 font = pygame.font.SysFont(None, 25)
 
 
+# Start the snake head image facing right
+direction = 'right'
 def snake(block_size, snake_list):
-    for x_y in snake_list:
+    if direction == 'right':
+        head = pygame.transform.rotate(image, 270)
+    if direction == 'left':
+        head = pygame.transform.rotate(image, 90)  
+    if direction == 'up':
+        head = image
+    if direction == 'down':
+        head = pygame.transform.rotate(image, 180)
+
+    # Make the "head" of the snake at each timestep our iamge
+    game_display.blit(head, (snake_list[-1][0], snake_list[-1][1]))
+
+    for x_y in snake_list[:-1]:
         pygame.draw.rect(game_display, green, [x_y[0], x_y[1], block_size, block_size])
 
+### TEXT_OBJECTS AND MESSAGE_TO_SCREEN ARE TO GET THE END GAME MESSAGE TO DISPLAY CENTERED
+def text_objects(text, color):
+    text_surface = font.render(text, True, color)
+    return text_surface, text_surface.get_rect()
 
-def message_to_screen(msg, color):
-    screen_text = font.render(msg, True, color)
-    game_display.blit(screen_text, [display_width / 2, display_height / 2])
+
+def message_to_screen(msg, color, y_displace=0, size='small'):
+    # surface object and the rectangle "shape"
+    text_surface, text_rect = text_objects(msg, red)
+    
+    # get center of the textbox surface
+    text_rect.center = (display_width / 2, display_height / 2 + y_displace)
+    game_display.blit(text_surface, text_rect)
 
 
 def game_loop():
+    global direction
+    
     game_exit = False
     game_over = False
 
@@ -49,7 +77,7 @@ def game_loop():
     lead_x = display_width / 2
     lead_y = display_height / 2
 
-    lead_x_change = 0
+    lead_x_change = 10
     lead_y_change = 0
 
     snake_list = []
@@ -65,7 +93,8 @@ def game_loop():
 
         while game_over == True:
             game_display.fill(white)
-            message_to_screen("Game Over! Press C to play again or Q to quit", red)
+            message_to_screen("Game Over!", red)
+            message_to_screen("Press C to play again or Q to quit", black, y_displace=50)
             pygame.display.update()
 
             for event in pygame.event.get():
@@ -90,18 +119,22 @@ def game_loop():
             if event.type == pygame.KEYDOWN:
                 # L & R
                 if event.key == pygame.K_LEFT:
+                    direction = 'left'
                     lead_x_change = -block_size
                     # update y velocity so user cant move diagonally
                     lead_y_change = 0
                 elif event.key == pygame.K_RIGHT:
+                    direction = 'right'
                     lead_x_change = block_size
                     lead_y_change = 0
                 # U & D
                 elif event.key == pygame.K_UP:
+                    direction = 'up'
                     # Update x velocity so user cant move diagonally
                     lead_x_change = 0
                     lead_y_change = -block_size # -y = up
                 elif event.key == pygame.K_DOWN:
+                    direction = 'down'
                     lead_x_change = 0
                     lead_y_change = block_size # +y = down
                 
@@ -147,8 +180,6 @@ def game_loop():
                 rand_apple_y = round(random.randrange(0, display_height-block_size))
                 # make the snake 1 block longer
                 snake_length += 1
-
-
 
 
         clock.tick(FPS)
