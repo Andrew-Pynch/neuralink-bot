@@ -85,6 +85,8 @@ def game_loop():
     # Change in direction of lace at each timestep
     x_change = 0
     y_change = 0
+
+    thread_counter = 10
     
 
     while not game_exit:
@@ -123,6 +125,11 @@ def game_loop():
                     y_change = -10 # negative y = up in pygame
                 elif event.key == pygame.K_DOWN:
                     y_change = 10 # positive y = down
+                elif event.key == pygame.K_KP_ENTER:
+                    thread_counter -= 1
+                    ### FUNCTIONALIZE THIS ###
+                    pygame.draw.rect(game_display, blue, [x, y, lace_size, lace_size])
+                
 
             
             """GAME BOUNDARIES"""
@@ -131,14 +138,16 @@ def game_loop():
             
 
         """UPDATE POSISTION OF LACE BASED OFF PLAYER INPUT"""
-        # We have to render the background first since layers are in order from furthest to closest
-        game_display.fill(white)
         # Set posistion to velocity
         x += x_change
         x_change = 0 # Reset velocity to 0 after each move
 
         y += y_change
         y_change = 0 # Reset velocity to 0 after each move
+
+        # We have to render the background first since layers are in order from furthest to closest
+        game_display.fill(white)
+        """### FUNCTIONALIZE THIS ###"""
         pygame.draw.rect(game_display, blue, [x, y, lace_size, lace_size])
 
 
