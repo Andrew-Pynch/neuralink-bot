@@ -8,3 +8,7 @@ I am going to create a simple pygame that simulates blood vessels and the placem
 - 10 Threads To "Sew"
 - Maximize distance from blood vessels
 - Lose points if you collide with a "Blood Vessel"
+
+# Using this repo
+To run any of the example games or the main surgery simulation run
+```pip install -r requirements.txt```
