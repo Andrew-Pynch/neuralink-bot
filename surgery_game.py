@@ -44,6 +44,10 @@ def vessels():
 
 """### RE ADD LACE FUNCTION???"""
 def lace(x, y, lace_list):
+    """SHOW LACE COUNTER IN TOP LEFT"""
+    remaining_laces = str(10 - len(lace_list))
+    message_to_screen(remaining_laces, red, -50)
+
     """### RENDER ALL THE LACES ###"""
     # RENDER THE CURRENT LACE
     pygame.draw.rect(game_display, blue, [x, y, lace_size, lace_size])
@@ -55,11 +59,8 @@ def score():
     """
     Haven't decided how this is going to be implemented. 
     """
-
-
-def remaining_laces(current_lace):
-    """show how many laces the user has left"""
     pass
+
 
 
 
@@ -86,8 +87,6 @@ def game_loop():
     # Current lace we are rendering
     current_lace = 0
 
-    # All of the threads on screen
-    laces = []
 
     # X AND Y COORDS OF THE LACE
     x = display_width / 2
@@ -102,6 +101,8 @@ def game_loop():
             game_display.fill(white)
             message_to_screen("Game Over!", red)
             message_to_screen("Press C to play again or Q to quit", black, y_displace=50)
+            # Reset lace_list (otherwise it will render laces placed during the last run)
+            del lace_list[:]
             pygame.display.update()
 
             for event in pygame.event.get():
