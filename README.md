@@ -18,5 +18,3 @@ To place a lace within the brain, press backspace. NOTE: This is kinda broken in
 To run any of the example games or the main surgery simulation run
 ```pip install -r requirements.txt```
 
-
-test line
