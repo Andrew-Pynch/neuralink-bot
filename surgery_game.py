@@ -48,6 +48,8 @@ def lace(x, y, lace_list):
     remaining_laces = str(10 - len(lace_list))
     message_to_screen(remaining_laces, red, -50)
 
+    #ADD: Checker to ensure a lace can't be placed on the same spot as a previous lace
+
     """### RENDER ALL THE LACES ###"""
     # RENDER THE CURRENT LACE
     pygame.draw.rect(game_display, blue, [x, y, lace_size, lace_size])
@@ -59,14 +61,16 @@ def score():
     """
     Haven't decided how this is going to be implemented. 
     """
+
+    #SUGGESTION: Maximise distance from the blood vessels throughout all 2D frames of blood vessels
+    #SUGGESTION: Have AI place threads and calculate score, baisically implement AI for this portion...
+
     pass
 
 
 def lose_condition(lace_list):
     if len(lace_list) >= 10:    #if more than 9 laces,
         return True             #player loses
-
-
 
 
 def text_objects(text, color):
