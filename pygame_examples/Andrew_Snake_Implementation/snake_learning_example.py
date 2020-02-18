@@ -51,13 +51,14 @@ def snake(block_size, snake_list):
     for x_y in snake_list[:-1]:
         pygame.draw.rect(game_display, green, [x_y[0], x_y[1], block_size, block_size])
 
+
 ### TEXT_OBJECTS AND MESSAGE_TO_SCREEN ARE TO GET THE END GAME MESSAGE TO DISPLAY CENTERED
 def text_objects(text, color):
     text_surface = font.render(text, True, color)
     return text_surface, text_surface.get_rect()
 
 
-def message_to_screen(msg, color, y_displace=0, size='small'):
+def message_to_screen(msg, color, x_displace=0,y_displace=0, size='small'):
     # surface object and the rectangle "shape"
     text_surface, text_rect = text_objects(msg, red)
     

@@ -46,8 +46,9 @@ def vessels():
     #      > create a recursive function
     #      > render the list of coordinates into the game screen (see line 56)
     
-"""Recursively generate a list of coordinates"""    
+ 
 def recurse():
+    """Recursively generate a list of coordinates"""   
     # base case: fractal goes off screen
     # take the previous coordinate, and either go down, left, right, or up, 
     #   but don't go in the same direction as the previous pixel.
@@ -60,7 +61,8 @@ def recurse():
 def lace(x, y, lace_list):
     """SHOW LACE COUNTER IN TOP LEFT"""
     remaining_laces = str(10 - len(lace_list))
-    message_to_screen(remaining_laces, red, -50)
+    lace_message = ("%s laces remain" % remaining_laces)
+    message_to_screen(lace_message, red, -display_width/2.5, -display_height/2.25)
 
     #ADD: Checker to ensure a lace can't be placed on the same spot as a previous lace
 
@@ -75,10 +77,7 @@ def score():
     """
     Haven't decided how this is going to be implemented. 
     """
-
-    #SUGGESTION: Maximise distance from the blood vessels throughout all 2D frames of blood vessels
-    #SUGGESTION: Have AI place threads and calculate score, baisically implement AI for this portion...
-
+    #SUGGESTION: Maximise distance from the blood vessels throughout all 2D frames of blood vessels @ Jacob
     pass
 
 
@@ -92,13 +91,13 @@ def text_objects(text, color):
     return text_surface, text_surface.get_rect()
 
 
-def message_to_screen(msg, color, y_displace=0, size='small'):
+def message_to_screen(msg, color, x_displace=0, y_displace=0, size='small'):
     """Display a message on the screen!"""
     # surface object and the rectangle "shape"
     text_surface, text_rect = text_objects(msg, red)
     
     # get center of the textbox surface
-    text_rect.center = (display_width / 2, display_height / 2 + y_displace)
+    text_rect.center = (display_width / 2 + x_displace, display_height / 2 + y_displace)
     game_display.blit(text_surface, text_rect)
 
 
