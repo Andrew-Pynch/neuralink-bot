@@ -36,10 +36,24 @@ lace_max = 9
 # List of laces
 lace_list = []
 
+#list of fractal coordinates:
+vessel_list = []
 
 ### N0TE: ALL THESE FUNCTIONS ARE JUST A GUESS AT WHAT THE STRUCTURE OF THE PROGRAM WILL BE... ###
 def vessels():
     """Create pygame representation of blood vessels"""
+    #TODO: > create a list of coordinate pairs similar to the lace_list
+    #      > create a recursive function
+    #      > render the list of coordinates into the game screen (see line 56)
+    
+"""Recursively generate a list of coordinates"""    
+def recurse():
+    # base case: fractal goes off screen
+    # take the previous coordinate, and either go down, left, right, or up, 
+    #   but don't go in the same direction as the previous pixel.
+    
+    # later, I will implement the random function
+
 
 
 """### RE ADD LACE FUNCTION???"""
