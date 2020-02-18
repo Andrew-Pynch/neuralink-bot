@@ -1,4 +1,4 @@
-# blood-bot
+# neuralink-bot
 Neuralink posses a robot capable of lacing a brain with "threads" containing electrodes. I am not sure if they posses the capability to automatically localize and avoid blood vessels while placing these threads. It appears that the surgery processes requries neurosurgeon supervision to select lacing sites that "dodge" blood vessels.
 
 I am going to create a simple pygame that simulates blood vessels and the placement of threads.
