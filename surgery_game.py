@@ -69,8 +69,11 @@ def lace(x, y, lace_list):
     """### RENDER ALL THE LACES ###"""
     # RENDER THE CURRENT LACE
     pygame.draw.rect(game_display, blue, [x, y, lace_size, lace_size])
-    for x_y in lace_list:
-        pygame.draw.rect(game_display, green, [x_y[0], x_y[1], lace_size, lace_size])
+    for coord_pair in lace_list:
+        if lace_list.count(coord_pair) > 1:
+            message_to_screen("Sorry, you can't place a lace in the same spot", red, display_width/4, -display_height/2.25)
+        else:
+            pygame.draw.rect(game_display, green, [coord_pair[0], coord_pair[1], lace_size, lace_size])
 
 
 def score():
