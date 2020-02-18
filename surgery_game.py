@@ -32,8 +32,6 @@ font = pygame.font.SysFont(None, 25)
 
 # Size of the neural lace on screen
 lace_size = 10
-# Start at the last lace
-current_lace = 0
 lace_max = 9
 # List of laces
 lace_list = []
@@ -57,7 +55,12 @@ def score():
     """
     Haven't decided how this is going to be implemented. 
     """
+
+
+def remaining_laces(current_lace):
+    """show how many laces the user has left"""
     pass
+
 
 
 def text_objects(text, color):
@@ -79,6 +82,9 @@ def game_loop():
     """The main loop of the neuralink surgery simulator"""
     game_exit = False
     game_over = False
+
+    # Current lace we are rendering
+    current_lace = 0
 
     # All of the threads on screen
     laces = []
@@ -140,7 +146,7 @@ def game_loop():
                     # Add to lace_list
                     lace_list.append(placed_lace)
                     # Increment current_lace
-                    # current_lace += 1
+                    current_lace += 1
                     # PRINT LINE FOR TESTING
                     print(lace_list)
 
