@@ -10,9 +10,8 @@ I am going to create a simple pygame that simulates blood vessels and the placem
 - Lose points if you collide with a "Blood Vessel"
 
 # Play instructions
-Movement of the surgial robot (pictured currently with a blue dot) can be achieved with the arrow keys
-
-To place a lace within the brain, press backspace. NOTE: This is kinda broken in that you have to press it twice (its rendering behind???)
+Movement = Arrow Keys
+Place Neural Lace = BackSpace
 
 # Using this repo
 To run any of the example games or the main surgery simulation run
