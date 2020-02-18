@@ -45,6 +45,12 @@ def vessels():
 
 
 """### RE ADD LACE FUNCTION???"""
+def lace(x, y, lace_list):
+    """### RENDER ALL THE LACES ###"""
+    # RENDER THE CURRENT LACE
+    pygame.draw.rect(game_display, blue, [x, y, lace_size, lace_size])
+    for x_y in lace_list:
+        pygame.draw.rect(game_display, green, [x_y[0], x_y[1], lace_size, lace_size])
 
 
 def score():
@@ -172,11 +178,7 @@ def game_loop():
         game_display.fill(white)
 
         """### RENDER ALL THE LACES ###"""
-        # RENDER THE CURRENT LACE
-        pygame.draw.rect(game_display, blue, [x, y, lace_size, lace_size])
-        for x_y in lace_list[:-1]:
-            pygame.draw.rect(game_display, green, [x_y[0], x_y[1], lace_size, lace_size])
-
+        lace(x, y, lace_list)
 
 
         """MAIN GAME ITEMS"""
