@@ -44,21 +44,7 @@ def vessels():
     """Create pygame representation of blood vessels"""
 
 
-
-def lace(current_lace, lace_list):
-    """
-    Renders all the laces that have been placed thusfar
-    
-    PARAMETERS:
-        current_lace: index that shows current lace in lace_list
-        lace_list: 2d list of laces to be rendered. Each sublist is the x-y 
-        coords of the list to be rendered
-    """
-    
-    
-    
-
-
+"""### RE ADD LACE FUNCTION???"""
 
 
 def score():
@@ -140,7 +126,18 @@ def game_loop():
                     y_change = lace_size # positive y = down
                     x_change = 0
                 elif event.key == pygame.K_BACKSPACE:
-                    pass
+                    # Get current coordinates
+                    x += x_change
+                    y += y_change
+                    # Place in list
+                    placed_lace = [x, y]
+                    # Add to lace_list
+                    lace_list.append(placed_lace)
+                    # Increment current_lace
+                    # current_lace += 1
+                    # PRINT LINE FOR TESTING
+                    print(lace_list)
+
 
                     
 
@@ -170,15 +167,15 @@ def game_loop():
         # Set posistion based on velocity
         x += x_change
         y += y_change
-        # lace_list is a list of laces and coordinates
-        lace_list[current_lace][0] = x
-        lace_list[current_lace][1] = y
 
         # We have to render the background first since layers are in order from furthest to closest
         game_display.fill(white)
 
         """### RENDER ALL THE LACES ###"""
-        lace(current_lace, lace_list)
+        # RENDER THE CURRENT LACE
+        pygame.draw.rect(game_display, blue, [x, y, lace_size, lace_size])
+        for x_y in lace_list[:-1]:
+            pygame.draw.rect(game_display, green, [x_y[0], x_y[1], lace_size, lace_size])
 
 
 
