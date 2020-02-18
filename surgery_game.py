@@ -168,7 +168,7 @@ def game_loop():
                     y_change = lace_size # positive y = down
                     x_change = 0
                 elif event.key == pygame.K_BACKSPACE:
-                    """### TURN THIS INTO A FUNCTION??? ###"""
+                    """### ADD THIS TO LACE FUNCTION ###"""
                     # Get current coordinates
                     x += x_change
                     y += y_change
