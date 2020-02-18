@@ -45,14 +45,25 @@ def vessels():
     #TODO: > create a list of coordinate pairs similar to the lace_list
     #      > create a recursive function
     #      > render the list of coordinates into the game screen (see line 56)
+    start_x = random.randint(0, 800)
+    start_y = random.randint(0, 800)
+    init_position = [start_x, start_y]
+    # Add to vessel_list
+    vessel_list.append(init_position)
+
+    recurse(start_x, start_y, -1)
     
  
-def recurse():
+def recurse(current_coord_x, current_coord_y, previous_direction):
     """Recursively generate a list of coordinates"""   
     # base case: fractal goes off screen
     # take the previous coordinate, and either go down, left, right, or up, 
     #   but don't go in the same direction as the previous pixel.
+    # previous direction: 0 for left, 1 for up, 2 for right, 3 for down
+
     
+
+
     # later, I will implement the random function
     pass
 
