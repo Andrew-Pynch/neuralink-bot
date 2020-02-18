@@ -53,10 +53,10 @@ def recurse():
     #   but don't go in the same direction as the previous pixel.
     
     # later, I will implement the random function
+    pass
 
 
 
-"""### RE ADD LACE FUNCTION???"""
 def lace(x, y, lace_list):
     """SHOW LACE COUNTER IN TOP LEFT"""
     remaining_laces = str(10 - len(lace_list))
