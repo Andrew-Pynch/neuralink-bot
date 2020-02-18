@@ -32,7 +32,11 @@ font = pygame.font.SysFont(None, 25)
 
 # Size of the neural lace on screen
 lace_size = 10
-lace_coordinates = [0, 0]
+# Start at the last lace
+current_lace = 0
+lace_max = 9
+# List of laces
+lace_list = []
 
 
 ### N0TE: ALL THESE FUNCTIONS ARE JUST A GUESS AT WHAT THE STRUCTURE OF THE PROGRAM WILL BE... ###
@@ -41,26 +45,25 @@ def vessels():
 
 
 
-def lace(x, y, lace_index, lace_size, laces):
+def lace(current_lace, lace_list):
     """
-    Represent the neural lace you will be performing surgery with
+    Renders all the laces that have been placed thusfar
     
     PARAMETERS:
-        lace_size: size of the lace on screen
-        lace_coordinates: the x, y posistion of the lace on screen
+        current_lace: index that shows current lace in lace_list
+        lace_list: 2d list of laces to be rendered. Each sublist is the x-y 
+        coords of the list to be rendered
     """
-    # list of tuples of laces 
-    for each_lace in laces:
-        pygame.draw.rect(game_display, blue, [each_lace[0], each_lace[1], lace_size, lace_size])
+    
+    
+    
 
 
 
 
 def score():
     """
-    Haven't decided how this is going to be implemented. T
-    The score function needs to be really good so that algo becomes
-    Excellent at "avoiding" blood vessels...
+    Haven't decided how this is going to be implemented. 
     """
     pass
 
@@ -94,9 +97,6 @@ def game_loop():
     # Change in direction of lace at each timestep
     x_change = 0
     y_change = 0
-
-    lace_counter = 10
-    lace_index = 0
     
 
     while not game_exit:
@@ -140,10 +140,8 @@ def game_loop():
                     y_change = lace_size # positive y = down
                     x_change = 0
                 elif event.key == pygame.K_BACKSPACE:
-                    print("Backspace key pressed")
-                    lace_counter -= 1
-                    lace_index += 1
-                    laces.append([x, y])
+                    pass
+
                     
 
             """### STOP MOVING WHEN KEY IS RELEASED ###"""
@@ -172,16 +170,19 @@ def game_loop():
         # Set posistion based on velocity
         x += x_change
         y += y_change
-        current_lace = [x, y]
+        # lace_list is a list of laces and coordinates
+        lace_list[current_lace][0] = x
+        lace_list[current_lace][1] = y
 
         # We have to render the background first since layers are in order from furthest to closest
         game_display.fill(white)
-        """### FUNCTIONALIZE THIS ###"""
-        
+
+        """### RENDER ALL THE LACES ###"""
+        lace(current_lace, lace_list)
+
 
 
         """MAIN GAME ITEMS"""
-
         pygame.display.update()
 
         """Render at the framerate ^^^"""
