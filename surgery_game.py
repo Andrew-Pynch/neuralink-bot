@@ -63,8 +63,8 @@ def score():
 
 
 def lose_condition(lace_list):
-    if len(lace_list) >= 10:
-        return True
+    if len(lace_list) >= 10:    #if more than 9 laces,
+        return True             #player loses
 
 
 
