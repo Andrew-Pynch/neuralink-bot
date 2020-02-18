@@ -62,6 +62,11 @@ def score():
     pass
 
 
+def lose_condition(lace_list):
+    if len(lace_list) >= 10:
+        return True
+
+
 
 
 def text_objects(text, color):
@@ -97,6 +102,9 @@ def game_loop():
     
 
     while not game_exit:
+        # Basically just check if we have placed all the laces
+        if lose_condition(lace_list) == True:
+            game_over = True
         while game_over == True:
             game_display.fill(white)
             message_to_screen("Game Over!", red)
@@ -124,6 +132,7 @@ def game_loop():
             if event.type == pygame.QUIT:
                 game_exit = True 
             
+
             """### MOVEMENT ###"""
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
@@ -139,6 +148,7 @@ def game_loop():
                     y_change = lace_size # positive y = down
                     x_change = 0
                 elif event.key == pygame.K_BACKSPACE:
+                    """### TURN THIS INTO A FUNCTION??? ###"""
                     # Get current coordinates
                     x += x_change
                     y += y_change
@@ -151,8 +161,6 @@ def game_loop():
                     # PRINT LINE FOR TESTING
                     print(lace_list)
 
-
-                    
 
             """### STOP MOVING WHEN KEY IS RELEASED ###"""
             if event.type == pygame.KEYUP:
@@ -170,7 +178,6 @@ def game_loop():
                     x_change = 0
                 
 
-            
             """GAME BOUNDARIES"""
             if x >= display_width or x < 0 or y >= display_height or y < 0:
                 game_over = True
@@ -187,7 +194,6 @@ def game_loop():
         """### RENDER ALL THE LACES ###"""
         lace(x, y, lace_list)
 
-
         """MAIN GAME ITEMS"""
         pygame.display.update()
 
@@ -195,10 +201,8 @@ def game_loop():
         clock.tick(FPS)
 
 
-
     pygame.quit()
     quit
-
 
 
 # Start the game!
