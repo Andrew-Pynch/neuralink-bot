@@ -39,27 +39,60 @@ lace_list = []
 #list of fractal coordinates:
 vessel_list = []
 
+
+
 ### N0TE: ALL THESE FUNCTIONS ARE JUST A GUESS AT WHAT THE STRUCTURE OF THE PROGRAM WILL BE... ###
-def vessels():
+def vessels(vessel_list):
     """Create pygame representation of blood vessels"""
     #TODO: > create a list of coordinate pairs similar to the lace_list
     #      > create a recursive function
     #      > render the list of coordinates into the game screen (see line 56)
-    start_x = random.randint(0, 800)
-    start_y = random.randint(0, 800)
-    init_position = [start_x, start_y]
-    # Add to vessel_list
-    vessel_list.append(init_position)
 
-    recurse(start_x, start_y, -1)
+    """ANDREWS CURRENTLY NON FUNCTIONING CODE :-("""
+    # vessel_width = 1
+
+    # start_x = random.randint(0, display_width)
+    # start_y = random.randint(0, display_height)
+
+    # vessel_list.append([start_x, start_y])
+    # stop_rendering = False
+
+    # # Add vessels to the list recursively?
+    # while stop_rendering == False:
+    #     for vessel in vessel_list:
+    #         if vessel[0] >= display_width or vessel[1] < 0 or vessel[1] >= display_height or vessel[1] < display_height:
+    #             stop_rendering = True
+    #             print("OUT OF BOUNDS")
+    #         else:
+    #             x_dir = random.uniform(-1, 1)
+    #             y_dir = random.uniform(-1, 1)
+    #             vessel_list.append([vessel_list[-1][0]+x_dir, vessel_list[-1][0]+y_dir])
+
+    # while stop_rendering == False:
+    #     pass
+        # Render the vessels in vessel list
+
+
+    """MATTS NOTES"""
+    # start_x = random.randint(0, display_width)
+    # start_y = random.randint(0, display_height)
+    # init_position = [start_x, start_y]
+    # # Add to vessel_list
+    # vessel_list.append(init_position)
+
+    # recurse(start_x, start_y, -1)
     
  
-def recurse(current_coord_x, current_coord_y, previous_direction):
+
+
+def recurse(vessel_list):
     """Recursively generate a list of coordinates"""   
     # base case: fractal goes off screen
     # take the previous coordinate, and either go down, left, right, or up, 
-    #   but don't go in the same direction as the previous pixel.
+    # but don't go in the same direction as the previous pixel.
     # previous direction: 0 for left, 1 for up, 2 for right, 3 for down
+    
+
 
     
 
@@ -69,13 +102,12 @@ def recurse(current_coord_x, current_coord_y, previous_direction):
 
 
 
+
 def render_lace(x, y, lace_list):
     """SHOW LACE COUNTER IN TOP LEFT"""
     remaining_laces = str(10 - len(lace_list))
     lace_message = ("%s laces remain" % remaining_laces)
-    message_to_screen(lace_message, red, -display_width/2.5, -display_height/2.25)
-
-    #ADD: Checker to ensure a lace can't be placed on the same spot as a previous lace
+    message_to_screen(lace_message, black, -display_width/2.5, -display_height/2.25)
 
     """### RENDER ALL THE LACES ###"""
     # RENDER THE CURRENT LACE
@@ -87,9 +119,13 @@ def render_lace(x, y, lace_list):
             pygame.draw.rect(game_display, green, [coord_pair[0], coord_pair[1], lace_size, lace_size])
 
 
+
+
 def lace_cleanup(lace_list): 
     for coord_pair in lace_list: 
         if lace_list.count(coord_pair) > 1: lace_list.remove(coord_pair)
+
+
 
 
 def score():
@@ -100,9 +136,13 @@ def score():
     pass
 
 
+
+
 def lose_condition(lace_list):
     if len(lace_list) >= 10:    #if more than 9 laces,
         return True             #player loses
+
+
 
 
 def text_objects(text, color):
@@ -110,14 +150,18 @@ def text_objects(text, color):
     return text_surface, text_surface.get_rect()
 
 
+
+
 def message_to_screen(msg, color, x_displace=0, y_displace=0, size='small'):
     """Display a message on the screen!"""
     # surface object and the rectangle "shape"
-    text_surface, text_rect = text_objects(msg, red)
+    text_surface, text_rect = text_objects(msg, color)
     
     # get center of the textbox surface
     text_rect.center = (display_width / 2 + x_displace, display_height / 2 + y_displace)
     game_display.blit(text_surface, text_rect)
+
+
 
 
 def game_loop():
@@ -128,6 +172,9 @@ def game_loop():
     # Current lace we are rendering
     current_lace = 0
 
+    """RENDER THE VESSELS ON SCREEN"""
+    vessels(vessel_list)
+    print(vessel_list)
 
     # X AND Y COORDS OF THE LACE
     x = display_width / 2
@@ -181,7 +228,7 @@ def game_loop():
                     y_change = -lace_size # negative y = up in pygame
                     x_change = 0
                 elif event.key == pygame.K_DOWN:
-                    y_change = lace_size # positive y = down
+                    y_change = +lace_size # negative y = up in pygame
                     x_change = 0
                 elif event.key == pygame.K_BACKSPACE:
                     """### ADD THIS TO LACE FUNCTION ###"""
