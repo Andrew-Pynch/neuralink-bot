@@ -36,9 +36,10 @@ lace_max = 9
 # List of laces
 lace_list = []
 
-#list of fractal coordinates:
+# Size of the vessel on the screen
+vessel_size = 10
+# List of fractal coordinates:
 vessel_list = []
-
 
 
 ### N0TE: ALL THESE FUNCTIONS ARE JUST A GUESS AT WHAT THE STRUCTURE OF THE PROGRAM WILL BE... ###
@@ -74,31 +75,43 @@ def vessels(vessel_list):
 
 
     """MATTS NOTES"""
-    # start_x = random.randint(0, display_width)
-    # start_y = random.randint(0, display_height)
-    # init_position = [start_x, start_y]
-    # # Add to vessel_list
+    start_x = random.randint(0, display_width)
+    start_y = random.randint(0, display_height)
+    
+    init_position = [start_x, start_y]
+    # Add to vessel_list
     # vessel_list.append(init_position)
 
-    # recurse(start_x, start_y, -1)
+    recurse(start_x, start_y, -1)
+
+    render_vessels(vessel_list)
     
  
 
 
-def recurse(vessel_list):
+def recurse(x, y, prev_direction):
     """Recursively generate a list of coordinates"""   
     # base case: fractal goes off screen
     # take the previous coordinate, and either go down, left, right, or up, 
     # but don't go in the same direction as the previous pixel.
     # previous direction: 0 for left, 1 for up, 2 for right, 3 for down
-    
+
+    # add the coordinate pair to the list
+    coords = [x, y]
+    vessel_list.append(coords)
+
+    #if the current point is on the screen, creat a new point diagonal to the current point
+    if x < display_width and x >= 0 and y < display_height and y >= 0:
+        recurse(x+1, y-1, -1)
+
+    # later, I will implement the random function to go in random directions of random lengths
+    # pass
 
 
-    
-
-
-    # later, I will implement the random function
-    pass
+def render_vessels(vessel_list):
+    """RENDER ALL THE VESSELS"""
+    for coord_pair in vessel_list:
+        pygame.draw.rect(game_display, black, [coord_pair[0], coord_pair[1], vessel_size, vessel_size])
 
 
 
@@ -174,6 +187,7 @@ def game_loop():
 
     """RENDER THE VESSELS ON SCREEN"""
     vessels(vessel_list)
+    print("Vessels: ")
     print(vessel_list)
 
     # X AND Y COORDS OF THE LACE
@@ -274,8 +288,12 @@ def game_loop():
         # We have to render the background first since layers are in order from furthest to closest
         game_display.fill(white)
 
+        """RENDER ALL THE VESSELS"""
+        render_vessels(vessel_list)
+
         """### RENDER ALL THE LACES ###"""
         render_lace(x, y, lace_list)
+
         # Cleanup lace list
         lace_cleanup(lace_list)
 
