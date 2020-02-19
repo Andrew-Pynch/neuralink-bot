@@ -10,8 +10,8 @@ I am going to create a simple pygame that simulates blood vessels and the placem
 - Lose points if you collide with a "Blood Vessel"
 
 # Play instructions
-Movement = Arrow Keys
-Place Neural Lace = BackSpace
+- Movement = Arrow Keys
+- Place Neural Lace = BackSpace
 
 # Using this repo
 To run any of the example games or the main surgery simulation run
