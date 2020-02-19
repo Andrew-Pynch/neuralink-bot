@@ -69,7 +69,7 @@ def recurse(current_coord_x, current_coord_y, previous_direction):
 
 
 
-def lace(x, y, lace_list):
+def render_lace(x, y, lace_list):
     """SHOW LACE COUNTER IN TOP LEFT"""
     remaining_laces = str(10 - len(lace_list))
     lace_message = ("%s laces remain" % remaining_laces)
@@ -85,6 +85,11 @@ def lace(x, y, lace_list):
             message_to_screen("Sorry, you can't place a lace in the same spot", red, display_width/4, -display_height/2.25)
         else:
             pygame.draw.rect(game_display, green, [coord_pair[0], coord_pair[1], lace_size, lace_size])
+
+
+def lace_cleanup(lace_list): 
+    for coord_pair in lace_list: 
+        if lace_list.count(coord_pair) > 1: lace_list.remove(coord_pair)
 
 
 def score():
@@ -223,7 +228,9 @@ def game_loop():
         game_display.fill(white)
 
         """### RENDER ALL THE LACES ###"""
-        lace(x, y, lace_list)
+        render_lace(x, y, lace_list)
+        # Cleanup lace list
+        lace_cleanup(lace_list)
 
         """MAIN GAME ITEMS"""
         pygame.display.update()
