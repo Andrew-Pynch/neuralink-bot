@@ -245,10 +245,18 @@ def game_loop():
         game_display.fill(white)
 
         """RENDER ALL THE VESSELS"""
-        render_vessels(display_width/2, display_height/2, -90, 9, vessel_list)
-        render_vessels(display_width/2, display_height/2, 0, 9, vessel_list)
-        render_vessels(display_width/2, display_height/2, 90, 9, vessel_list)
-        render_vessels(display_width/2, display_height/2, 180, 9, vessel_list)
+        vessel_length = 8
+        ### CENTRAL VEINS ###
+        render_vessels(display_width/2, display_height/2, -90, vessel_length, vessel_list)
+        render_vessels(display_width/2, display_height/2, 0, vessel_length, vessel_list)
+        render_vessels(display_width/2, display_height/2, 90, vessel_length, vessel_list)
+        render_vessels(display_width/2, display_height/2, 180, vessel_length, vessel_list)
+
+        ### OUTER VEINS POINTING INWARDS ###
+        render_vessels(0, 0, 45, vessel_length, vessel_list)
+        render_vessels(display_width, 0, -225, vessel_length, vessel_list)
+        render_vessels(0, display_height, -45, vessel_length, vessel_list)
+        render_vessels(display_width, display_height, 225, vessel_length, vessel_list)
 
         """### RENDER ALL THE LACES ###"""
         render_lace(x, y, lace_list)
