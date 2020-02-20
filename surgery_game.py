@@ -106,23 +106,32 @@ def render_lace(x, y, lace_list):
             pygame.draw.rect(game_display, green, [coord_pair[0], coord_pair[1], lace_size, lace_size])
 
 
-
-
 def lace_cleanup(lace_list): 
+    """The magical but jenky function that prevents duplicate laces from being placed"""
     for coord_pair in lace_list: 
         if lace_list.count(coord_pair) > 1: lace_list.remove(coord_pair)
 
 
 
 
-def score():
-    """
-    Haven't decided how this is going to be implemented. 
-    """
+def score(lace_list, vessel_list):
+    """Score = Σ(Euclidean Distance(for coord_pair in points_list))"""
     #SUGGESTION: Maximise distance from the blood vessels throughout all 2D frames of blood vessels @ Jacob
+    # Combine coordinates of all the laces and the blood vessel coordinates
+    points_list = lace_list + vessel_list
+
+    # Combined euclidean distance between each point and every other point in the list
+    distance_sum_combined = 0
+
+    for point in points_list:
+        # compute total distance between current point and every other point in the list
+        distance_sum_current_point = compute_euclidean(1, 2, 3, 4)
+        distance_sum_absolute += result
+    
+
+def compute_euclidean(x1, y1, x2, y2)
+    """Compute the euclidean distance between two sets of points"""
     pass
-
-
 
 
 def lose_condition(lace_list):
