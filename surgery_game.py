@@ -1,6 +1,8 @@
 import pygame
 import time
 import random
+from math import hypot
+from itertools import combinations
 
 # Start pygame ;-)
 pygame.init()
@@ -84,8 +86,8 @@ def recurse(x, y, prev_direction):
 
 def render_vessels(vessel_list):
     """RENDER ALL THE VESSELS"""
-    for coord_pair in vessel_list:
-        pygame.draw.rect(game_display, black, [coord_pair[0], coord_pair[1], vessel_size, vessel_size])
+    for point in vessel_list:
+        pygame.draw.rect(game_display, black, [point[0], point[1], vessel_size, vessel_size])
 
 
 
@@ -99,39 +101,53 @@ def render_lace(x, y, lace_list):
     """### RENDER ALL THE LACES ###"""
     # RENDER THE CURRENT LACE
     pygame.draw.rect(game_display, blue, [x, y, lace_size, lace_size])
-    for coord_pair in lace_list:
-        if lace_list.count(coord_pair) > 1:
+    for point in lace_list:
+        if lace_list.count(point) > 1:
             message_to_screen("Sorry, you can't place a lace in the same spot", red, display_width/4, -display_height/2.25)
         else:
-            pygame.draw.rect(game_display, green, [coord_pair[0], coord_pair[1], lace_size, lace_size])
+            pygame.draw.rect(game_display, green, [point[0], point[1], lace_size, lace_size])
 
 
 def lace_cleanup(lace_list): 
     """The magical but jenky function that prevents duplicate laces from being placed"""
-    for coord_pair in lace_list: 
-        if lace_list.count(coord_pair) > 1: lace_list.remove(coord_pair)
+    for point in lace_list: 
+        if lace_list.count(point) > 1: lace_list.remove(point)
 
 
 
 
 def score(lace_list, vessel_list):
-    """Score = Σ(Euclidean Distance(for coord_pair in points_list))"""
+    """Score = Σ(Euclidean Distance(for point in points_list))"""
     #SUGGESTION: Maximise distance from the blood vessels throughout all 2D frames of blood vessels @ Jacob
     # Combine coordinates of all the laces and the blood vessel coordinates
-    points_list = lace_list + vessel_list
-
-    # Combined euclidean distance between each point and every other point in the list
-    distance_sum_combined = 0
-
-    for point in points_list:
-        # compute total distance between current point and every other point in the list
-        distance_sum_current_point = compute_euclidean(1, 2, 3, 4)
-        distance_sum_absolute += result
+    
+    # points_list = lace_list + vessel_list
+    # ^ This wont work because this will also compute the distance between each block in the blood vessel...
+    # Need to find a way to only compute the distance between 1 lace to another, and all the vessels separately
+    # TODO: vessel_distance, lace_distance? 
+    for point in lace_list:
+        point = tuple(point)
     
 
-def compute_euclidean(x1, y1, x2, y2)
-    """Compute the euclidean distance between two sets of points"""
-    pass
+    # Compute the distance between each point and every other point in the list
+    distance_list = [compute_euclidean(*combo) for combo in combinations(lace_list,2)]
+
+    score = sum(distance_list)
+    message = ("Score: %s" % score)
+    message_to_screen(message, black, -display_width/2.5, +display_height/2.5)
+
+    
+
+
+
+
+def compute_euclidean(p1, p2):
+    """Euclidean distance between two points."""
+    x1, y1 = p1[0], p1[1]
+    x2, y2 = p2[0], p2[1]
+
+    return hypot(x2 - x1, y2 - y1)
+    
 
 
 def lose_condition(lace_list):
@@ -276,6 +292,7 @@ def game_loop():
 
         """### RENDER ALL THE LACES ###"""
         render_lace(x, y, lace_list)
+        score(lace_list, vessel_list)
 
         # Cleanup lace list
         lace_cleanup(lace_list)
