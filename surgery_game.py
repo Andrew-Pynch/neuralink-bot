@@ -46,7 +46,7 @@ vessel_list = []
 
 
 ### N0TE: ALL THESE FUNCTIONS ARE JUST A GUESS AT WHAT THE STRUCTURE OF THE PROGRAM WILL BE... ###
-def render_vessels(x1, y1, angle, depth, vessel_list):
+def vessel_fractal(x1, y1, angle, depth, vessel_list):
     if depth:
         x2 = x1 + int(math.cos(math.radians(angle)) * depth * 10.0)
         y2 = y1 + int(math.sin(math.radians(angle)) * depth * 10.0)
@@ -55,13 +55,29 @@ def render_vessels(x1, y1, angle, depth, vessel_list):
         pygame.draw.line(game_display, red, (x1, y1), (x2, y2), 2)
 
         # Render the left branch and add its coordinates to the list
-        render_vessels(x2, y2, angle - 20, depth - 1, vessel_list)
+        vessel_fractal(x2, y2, angle - 20, depth - 1, vessel_list)
         vessel_list.append([x2, y2])
         # Render the right branch and add its coordinates to the list
-        render_vessels(x2, y2, angle + 20, depth - 1, vessel_list)
+        vessel_fractal(x2, y2, angle + 20, depth - 1, vessel_list)
         vessel_list.append([x2, y2])
 
     return vessel_list
+
+
+def render_vessels(vessel_length, vessel_list):
+    """RENDER ALL THE VESSELS"""
+    vessel_length = 8
+    ### CENTRAL VEINS ###
+    vessel_fractal(display_width/2, display_height/2, -90, vessel_length, vessel_list)
+    vessel_fractal(display_width/2, display_height/2, 0, vessel_length, vessel_list)
+    vessel_fractal(display_width/2, display_height/2, 90, vessel_length, vessel_list)
+    vessel_fractal(display_width/2, display_height/2, 180, vessel_length, vessel_list)
+
+    ### OUTER VEINS POINTING INWARDS ###
+    vessel_fractal(0, 0, 45, vessel_length, vessel_list)
+    vessel_fractal(display_width, 0, -225, vessel_length, vessel_list)
+    vessel_fractal(0, display_height, -45, vessel_length, vessel_list)
+    vessel_fractal(display_width, display_height, 225, vessel_length, vessel_list)
 
 
 def render_lace(x, y, lace_list):
@@ -246,17 +262,7 @@ def game_loop():
 
         """RENDER ALL THE VESSELS"""
         vessel_length = 8
-        ### CENTRAL VEINS ###
-        render_vessels(display_width/2, display_height/2, -90, vessel_length, vessel_list)
-        render_vessels(display_width/2, display_height/2, 0, vessel_length, vessel_list)
-        render_vessels(display_width/2, display_height/2, 90, vessel_length, vessel_list)
-        render_vessels(display_width/2, display_height/2, 180, vessel_length, vessel_list)
-
-        ### OUTER VEINS POINTING INWARDS ###
-        render_vessels(0, 0, 45, vessel_length, vessel_list)
-        render_vessels(display_width, 0, -225, vessel_length, vessel_list)
-        render_vessels(0, display_height, -45, vessel_length, vessel_list)
-        render_vessels(display_width, display_height, 225, vessel_length, vessel_list)
+        render_vessels(vessel_length, vessel_list)
 
         """### RENDER ALL THE LACES ###"""
         render_lace(x, y, lace_list)
