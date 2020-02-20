@@ -102,7 +102,7 @@ def score(lace_list, vessel_list):
     # Compute the distance between each point and every other point in the list
     distance_list = [compute_euclidean(*combo) for combo in combinations(lace_list,2)]
 
-    score = sum(distance_list)
+    score = int(sum(distance_list))
     message = ("Score: %s" % score)
     message_to_screen(message, black, -display_width/2.5, +display_height/2.5)
 
