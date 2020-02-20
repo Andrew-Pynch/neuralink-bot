@@ -14,7 +14,7 @@ game_display = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption("Snake")
 
 # Get the picture of the snakehead we created
-image = pygame.image.load('snake.jpg')
+image = pygame.image.load('snake.png')
 
 # Explitily define some RGB Colors
 white = (255, 255, 255)

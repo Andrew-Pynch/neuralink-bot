@@ -118,11 +118,8 @@ def score(lace_list, vessel_list):
 
     score = int(sum(lace_distance_list))
 
-    """Andrews sad broken code to check for blood vessel collisions"""
-    # for i in range(len(lace_list)):
-    #     for j in range(len(vessel_list)):
-    #         if lace_list[i] == vessel_list[j]:
-    #             score -= int(score/10)
+    """REDUCE SCORE FOR COLLIDING WITH A BLOOD VESSEL"""
+    #https://djangostars.com/blog/list-comprehensions-and-generator-expressions/
 
     message = ("Score: %s" % score)
     message_to_screen(message, black, -display_width/2.5, +display_height/2.5)
