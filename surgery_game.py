@@ -26,7 +26,7 @@ blue = (0, 0, 155)
 ####################
 """GAME VARIABLES"""
 ####################
-FPS = 15
+FPS = 30
 clock = pygame.time.Clock()
 
 # Font
@@ -62,8 +62,6 @@ def vessels(vessel_list):
 
     render_vessels(vessel_list)
     
- 
-
 
 def recurse(x, y, prev_direction):
     """Recursively generate a list of coordinates"""   
@@ -79,17 +77,16 @@ def recurse(x, y, prev_direction):
     #if the current point is on the screen, creat a new point diagonal to the current point
     if x < display_width and x >= 0 and y < display_height and y >= 0:
         recurse(x+1, y-1, -1)
+    else:
+        return vessel_list
 
     # later, I will implement the random function to go in random directions of random lengths
-
 
 
 def render_vessels(vessel_list):
     """RENDER ALL THE VESSELS"""
     for point in vessel_list:
         pygame.draw.rect(game_display, black, [point[0], point[1], vessel_size, vessel_size])
-
-
 
 
 def render_lace(x, y, lace_list):
@@ -114,8 +111,6 @@ def lace_cleanup(lace_list):
         if lace_list.count(point) > 1: lace_list.remove(point)
 
 
-
-
 def score(lace_list, vessel_list):
     """Score = Σ(Euclidean Distance(for point in points_list))"""
     #SUGGESTION: Maximise distance from the blood vessels throughout all 2D frames of blood vessels @ Jacob
@@ -136,10 +131,6 @@ def score(lace_list, vessel_list):
     message = ("Score: %s" % score)
     message_to_screen(message, black, -display_width/2.5, +display_height/2.5)
 
-    
-
-
-
 
 def compute_euclidean(p1, p2):
     """Euclidean distance between two points."""
@@ -149,19 +140,14 @@ def compute_euclidean(p1, p2):
     return hypot(x2 - x1, y2 - y1)
     
 
-
 def lose_condition(lace_list):
     if len(lace_list) >= 10:    #if more than 9 laces,
         return True             #player loses
 
 
-
-
 def text_objects(text, color):
     text_surface = font.render(text, True, color)
     return text_surface, text_surface.get_rect()
-
-
 
 
 def message_to_screen(msg, color, x_displace=0, y_displace=0, size='small'):
@@ -172,8 +158,6 @@ def message_to_screen(msg, color, x_displace=0, y_displace=0, size='small'):
     # get center of the textbox surface
     text_rect.center = (display_width / 2 + x_displace, display_height / 2 + y_displace)
     game_display.blit(text_surface, text_rect)
-
-
 
 
 def game_loop():
