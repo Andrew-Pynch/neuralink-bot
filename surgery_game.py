@@ -48,32 +48,6 @@ def vessels(vessel_list):
     #TODO: > create a list of coordinate pairs similar to the lace_list
     #      > create a recursive function
     #      > render the list of coordinates into the game screen (see line 56)
-
-    """ANDREWS CURRENTLY NON FUNCTIONING CODE :-("""
-    # vessel_width = 1
-
-    # start_x = random.randint(0, display_width)
-    # start_y = random.randint(0, display_height)
-
-    # vessel_list.append([start_x, start_y])
-    # stop_rendering = False
-
-    # # Add vessels to the list recursively?
-    # while stop_rendering == False:
-    #     for vessel in vessel_list:
-    #         if vessel[0] >= display_width or vessel[1] < 0 or vessel[1] >= display_height or vessel[1] < display_height:
-    #             stop_rendering = True
-    #             print("OUT OF BOUNDS")
-    #         else:
-    #             x_dir = random.uniform(-1, 1)
-    #             y_dir = random.uniform(-1, 1)
-    #             vessel_list.append([vessel_list[-1][0]+x_dir, vessel_list[-1][0]+y_dir])
-
-    # while stop_rendering == False:
-    #     pass
-        # Render the vessels in vessel list
-
-
     """MATTS NOTES"""
     start_x = random.randint(0, display_width)
     start_y = random.randint(0, display_height)
@@ -105,7 +79,7 @@ def recurse(x, y, prev_direction):
         recurse(x+1, y-1, -1)
 
     # later, I will implement the random function to go in random directions of random lengths
-    # pass
+
 
 
 def render_vessels(vessel_list):
