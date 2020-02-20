@@ -1,6 +1,7 @@
 import pygame
 import time
 import random
+import math
 from math import hypot
 from itertools import combinations
 
@@ -26,7 +27,7 @@ blue = (0, 0, 155)
 ####################
 """GAME VARIABLES"""
 ####################
-FPS = 30
+FPS = 15
 clock = pygame.time.Clock()
 
 # Font
@@ -45,48 +46,22 @@ vessel_list = []
 
 
 ### N0TE: ALL THESE FUNCTIONS ARE JUST A GUESS AT WHAT THE STRUCTURE OF THE PROGRAM WILL BE... ###
-def vessels(vessel_list):
-    """Create pygame representation of blood vessels"""
-    #TODO: > create a list of coordinate pairs similar to the lace_list
-    #      > create a recursive function
-    #      > render the list of coordinates into the game screen (see line 56)
-    """MATTS NOTES"""
-    start_x = random.randint(0, display_width)
-    start_y = random.randint(0, display_height)
-    
-    init_position = [start_x, start_y]
-    # Add to vessel_list
-    # vessel_list.append(init_position)
+def render_vessels(x1, y1, angle, depth, vessel_list):
+    if depth:
+        x2 = x1 + int(math.cos(math.radians(angle)) * depth * 10.0)
+        y2 = y1 + int(math.sin(math.radians(angle)) * depth * 10.0)
 
-    recurse(start_x, start_y, -1)
+        # Render the paramters that were passed in
+        pygame.draw.line(game_display, red, (x1, y1), (x2, y2), 2)
 
-    render_vessels(vessel_list)
-    
+        # Render the left branch and add its coordinates to the list
+        render_vessels(x2, y2, angle - 20, depth - 1, vessel_list)
+        vessel_list.append([x2, y2])
+        # Render the right branch and add its coordinates to the list
+        render_vessels(x2, y2, angle + 20, depth - 1, vessel_list)
+        vessel_list.append([x2, y2])
 
-def recurse(x, y, prev_direction):
-    """Recursively generate a list of coordinates"""   
-    # base case: fractal goes off screen
-    # take the previous coordinate, and either go down, left, right, or up, 
-    # but don't go in the same direction as the previous pixel.
-    # previous direction: 0 for left, 1 for up, 2 for right, 3 for down
-
-    # add the coordinate pair to the list
-    coords = [x, y]
-    vessel_list.append(coords)
-
-    #if the current point is on the screen, creat a new point diagonal to the current point
-    if x < display_width and x >= 0 and y < display_height and y >= 0:
-        recurse(x+1, y-1, -1)
-    else:
-        return vessel_list
-
-    # later, I will implement the random function to go in random directions of random lengths
-
-
-def render_vessels(vessel_list):
-    """RENDER ALL THE VESSELS"""
-    for point in vessel_list:
-        pygame.draw.rect(game_display, black, [point[0], point[1], vessel_size, vessel_size])
+    return vessel_list
 
 
 def render_lace(x, y, lace_list):
@@ -169,9 +144,7 @@ def game_loop():
     current_lace = 0
 
     """RENDER THE VESSELS ON SCREEN"""
-    vessels(vessel_list)
-    print("Vessels: ")
-    print(vessel_list)
+
 
     # X AND Y COORDS OF THE LACE
     x = display_width / 2
@@ -272,7 +245,10 @@ def game_loop():
         game_display.fill(white)
 
         """RENDER ALL THE VESSELS"""
-        render_vessels(vessel_list)
+        render_vessels(display_width/2, display_height/2, -90, 9, vessel_list)
+        render_vessels(display_width/2, display_height/2, 0, 9, vessel_list)
+        render_vessels(display_width/2, display_height/2, 90, 9, vessel_list)
+        render_vessels(display_width/2, display_height/2, 180, 9, vessel_list)
 
         """### RENDER ALL THE LACES ###"""
         render_lace(x, y, lace_list)
