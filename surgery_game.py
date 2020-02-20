@@ -104,21 +104,26 @@ def lace_cleanup(lace_list):
 
 def score(lace_list, vessel_list):
     """Score = Σ(Euclidean Distance(for point in points_list))"""
-    #SUGGESTION: Maximise distance from the blood vessels throughout all 2D frames of blood vessels @ Jacob
-    # Combine coordinates of all the laces and the blood vessel coordinates
-    
-    # points_list = lace_list + vessel_list
-    # ^ This wont work because this will also compute the distance between each block in the blood vessel...
-    # Need to find a way to only compute the distance between 1 lace to another, and all the vessels separately
-    # TODO: vessel_distance, lace_distance? 
+    ### TODO: Fix error checking on reducing score when a lace collides with a blood vessel
+    score = 0
+
+    """Turn points in lace_list and vessel_list into tuples for faster processing"""
     for point in lace_list:
         point = tuple(point)
-    
+    # for point in vessel_list:
+    #     point = tuple(point)
 
     # Compute the distance between each point and every other point in the list
-    distance_list = [compute_euclidean(*combo) for combo in combinations(lace_list,2)]
+    lace_distance_list = [compute_euclidean(*combo) for combo in combinations(lace_list,2)]
 
-    score = int(sum(distance_list))
+    score = int(sum(lace_distance_list))
+
+    """Andrews sad broken code to check for blood vessel collisions"""
+    # for i in range(len(lace_list)):
+    #     for j in range(len(vessel_list)):
+    #         if lace_list[i] == vessel_list[j]:
+    #             score -= int(score/10)
+
     message = ("Score: %s" % score)
     message_to_screen(message, black, -display_width/2.5, +display_height/2.5)
 
