@@ -1,7 +1,7 @@
 # neuralink-bot
 Neuralink posses a robot capable of lacing a brain with "threads" containing electrodes. I am not sure if they posses the capability to automatically localize and avoid blood vessels while placing these threads. It appears that the surgery processes requries neurosurgeon supervision to select lacing sites that "dodge" blood vessels.
 
-![Clip From Neuralink Presentation](neuralink.gif)
+![](https://media.giphy.com/media/Jr5RD7ns1m2dRKa8go/giphy.gif)
 
 ## Roadmap
 -1a. Develop simple 2 simulation loosely based off of Neuralinks Brain Surgery Process: X - WE ARE HERE
