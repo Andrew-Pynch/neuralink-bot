@@ -64,20 +64,19 @@ def vessel_fractal(x1, y1, angle, depth, vessel_list):
     return vessel_list
 
 
-def render_vessels(vessel_length, vessel_list):
+def render_vessels(vessel_length, vessel_list, pulse):
     """RENDER ALL THE VESSELS"""
-    vessel_length = 8
     ### CENTRAL VEINS ###
-    vessel_fractal(display_width/2, display_height/2, -90, vessel_length, vessel_list)
-    vessel_fractal(display_width/2, display_height/2, 0, vessel_length, vessel_list)
-    vessel_fractal(display_width/2, display_height/2, 90, vessel_length, vessel_list)
-    vessel_fractal(display_width/2, display_height/2, 180, vessel_length, vessel_list)
+    vessel_fractal(display_width/2+pulse, display_height/2+pulse, -90, vessel_length, vessel_list)
+    vessel_fractal(display_width/2+pulse, display_height/2+pulse, 0, vessel_length, vessel_list)
+    vessel_fractal(display_width/2+pulse, display_height/2+pulse, 90, vessel_length, vessel_list)
+    vessel_fractal(display_width/2+pulse, display_height/2+pulse, 180, vessel_length, vessel_list)
 
     ### OUTER VEINS POINTING INWARDS ###
-    vessel_fractal(0, 0, 45, vessel_length, vessel_list)
-    vessel_fractal(display_width, 0, -225, vessel_length, vessel_list)
-    vessel_fractal(0, display_height, -45, vessel_length, vessel_list)
-    vessel_fractal(display_width, display_height, 225, vessel_length, vessel_list)
+    vessel_fractal(0+pulse, 0+pulse, 45, vessel_length, vessel_list)
+    vessel_fractal(display_width+pulse, 0+pulse, -225, vessel_length, vessel_list)
+    vessel_fractal(0+pulse, display_height+pulse, -45, vessel_length, vessel_list)
+    vessel_fractal(display_width+pulse, display_height+pulse, 225, vessel_length, vessel_list)
 
 
 def render_lace(x, y, lace_list):
@@ -264,7 +263,13 @@ def game_loop():
 
         """RENDER ALL THE VESSELS"""
         vessel_length = 8
-        render_vessels(vessel_length, vessel_list)
+        pulse = 5
+        if pulse != 0:
+            pulse -= 1
+        else:
+            pulse = 5
+        render_vessels(vessel_length, vessel_list, pulse)
+
 
         """### RENDER ALL THE LACES ###"""
         render_lace(x, y, lace_list)
