@@ -64,19 +64,20 @@ def vessel_fractal(x1, y1, angle, depth, vessel_list):
     return vessel_list
 
 
-def render_vessels(vessel_length, vessel_list, pulse):
+def render_vessels(vessel_length, vessel_list, pulse=0, degree=90):
     """RENDER ALL THE VESSELS"""
+
     ### CENTRAL VEINS ###
-    vessel_fractal(display_width/2+pulse, display_height/2+pulse, -90, vessel_length, vessel_list)
-    vessel_fractal(display_width/2+pulse, display_height/2+pulse, 0, vessel_length, vessel_list)
-    vessel_fractal(display_width/2+pulse, display_height/2+pulse, 90, vessel_length, vessel_list)
-    vessel_fractal(display_width/2+pulse, display_height/2+pulse, 180, vessel_length, vessel_list)
+    vessel_fractal(display_width/2+pulse, display_height/2+pulse, -degree, vessel_length, vessel_list)
+    vessel_fractal(display_width/2+pulse, display_height/2+pulse, 90-degree, vessel_length, vessel_list)
+    vessel_fractal(display_width/2+pulse, display_height/2+pulse, degree, vessel_length, vessel_list)
+    vessel_fractal(display_width/2+pulse, display_height/2+pulse, degree+90, vessel_length, vessel_list)
 
     ### OUTER VEINS POINTING INWARDS ###
-    vessel_fractal(0+pulse, 0+pulse, 45, vessel_length, vessel_list)
-    vessel_fractal(display_width+pulse, 0+pulse, -225, vessel_length, vessel_list)
-    vessel_fractal(0+pulse, display_height+pulse, -45, vessel_length, vessel_list)
-    vessel_fractal(display_width+pulse, display_height+pulse, 225, vessel_length, vessel_list)
+    vessel_fractal(0+pulse, 0+pulse, degree-45, vessel_length, vessel_list)
+    vessel_fractal(display_width+pulse, 0+pulse, degree-315, vessel_length, vessel_list)
+    vessel_fractal(0+pulse, display_height+pulse, degree-135, vessel_length, vessel_list)
+    vessel_fractal(display_width+pulse, display_height+pulse, degree+135, vessel_length, vessel_list)
 
 
 def render_lace(x, y, lace_list):
@@ -263,12 +264,12 @@ def game_loop():
 
         """RENDER ALL THE VESSELS"""
         vessel_length = 8
-        pulse = 5
-        if pulse != 0:
-            pulse -= 1
-        else:
-            pulse = 5
-        render_vessels(vessel_length, vessel_list, pulse)
+        pulse = 15
+        for i in range(FPS // 2):
+            random_scalar = random.randint(-10, 10)
+            render_vessels(vessel_length, vessel_list, random_scalar)
+
+
 
 
         """### RENDER ALL THE LACES ###"""
