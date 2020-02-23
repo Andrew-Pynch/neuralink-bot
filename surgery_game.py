@@ -124,6 +124,28 @@ def score(lace_list, vessel_list):
     message = ("Score: %s" % score)
     message_to_screen(message, black, -display_width/2.5, +display_height/2.5)
 
+def score_cumulative(lace_list, vessel_list, score):
+    """Score = Σ(Euclidean Distance(for point in points_list))"""
+    ### TODO: Fix error checking on reducing score when a lace collides with a blood vessel
+    # REMOVE SCORE = 0 such that score variable isn't reset every time
+    # score = 0
+
+    """Turn points in lace_list and vessel_list into tuples for faster processing"""
+    for point in lace_list:
+        point = tuple(point)
+    # for point in vessel_list:
+    #     point = tuple(point)
+
+    # Compute the distance between each point and every other point in the list
+    lace_distance_list = [compute_euclidean(*combo) for combo in combinations(lace_list,2)]
+
+    score += int(sum(lace_distance_list))
+
+    """REDUCE SCORE FOR COLLIDING WITH A BLOOD VESSEL"""
+    #https://djangostars.com/blog/list-comprehensions-and-generator-expressions/
+
+    message = ("Score: %s" % score)
+    message_to_screen(message, black, -display_width/2.5, +display_height/2.5)
 
 def compute_euclidean(p1, p2):
     """Euclidean distance between two points."""
@@ -157,6 +179,7 @@ def game_loop():
     """The main loop of the neuralink surgery simulator"""
     game_exit = False
     game_over = False
+    score = 0
 
     # Current lace we are rendering
     current_lace = 0
@@ -179,6 +202,7 @@ def game_loop():
         while game_over == True:
             game_display.fill(white)
             message_to_screen("Game Over!", red)
+            message_to_screen("Final score:", red)      #print the final score to the screen
             message_to_screen("Press C to play again or Q to quit", black, y_displace=50)
             # Reset lace_list (otherwise it will render laces placed during the last run)
             del lace_list[:]
@@ -269,12 +293,10 @@ def game_loop():
             random_scalar = random.randint(-10, 10)
             render_vessels(vessel_length, vessel_list, random_scalar)
 
-
-
-
         """### RENDER ALL THE LACES ###"""
         render_lace(x, y, lace_list)
         score(lace_list, vessel_list)
+        # score_cumulative(lace_list, vessel_list, score)       # enable for "hard mode"
 
         # Cleanup lace list
         lace_cleanup(lace_list)
