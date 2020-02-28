@@ -5,6 +5,7 @@ import math
 from math import hypot
 from itertools import combinations
 
+
 # Start pygame ;-)
 pygame.init()
 
@@ -27,7 +28,7 @@ blue = (0, 0, 155)
 ####################
 """GAME VARIABLES"""
 ####################
-FPS = 15
+FPS = 1
 clock = pygame.time.Clock()
 
 # Font
@@ -49,10 +50,12 @@ def game_loop():
         
         # Show the image
         game_display.blit(background_image, [0, 0])
+        pygame.display.update()
+        game_display.blit(background_image, [100, 100])
+
 
         pygame.display.flip()
         clock.tick(FPS)
-
 
 # Start the game!
 game_loop()
