@@ -4,7 +4,7 @@ Neuralink posses a robot capable of lacing a brain with "threads" containing ele
 ![](https://media.giphy.com/media/Jr5RD7ns1m2dRKa8go/giphy.gif)
 
 ## Roadmap
-NOTE: I have been reading lots of books and taking a MOOC on robotics and am coming to the conclusion that I need to reconsider the way I amtrying to construct the simulation. Within the ethos of work smarter not harder, developing this simulation from scratch is seeming to be more of an impediment than it needs to be. 
+NOTE: I have been reading lots of books and taking a MOOC on robotics and am coming to the conclusion that I need to reconsider the way I am trying to construct the simulation. Within the ethos of work smarter not harder, developing this simulation from scratch is seeming to be more of an impediment than it needs to be. 
 
 Once I finish up this term of school and am blessed with more freetime I think I am going to wipe the slate clean and start from scratch with some of the tools I have been learning over the last couple weeks
 
