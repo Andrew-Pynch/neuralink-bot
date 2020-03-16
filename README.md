@@ -6,6 +6,9 @@ Neuralink posses a robot capable of lacing a brain with "threads" containing ele
 
 ![](https://media.giphy.com/media/Jr5RD7ns1m2dRKa8go/giphy.gif)
 
+## Gif Downloads
+I initially tried to convert the Neuralink gif I recorded from the launch event into individual fname_jpg files programmatically, but ended up resorting to https://ezgif.com/.
+
 ## Roadmap
 NOTE: I have been reading lots of books and taking a MOOC on robotics and am coming to the conclusion that I need to reconsider the way I am trying to construct the simulation. Within the ethos of work smarter not harder, developing this simulation from scratch is seeming to be more of an impediment than it needs to be. 
 
