@@ -1,6 +1,3 @@
-# TEMPORARY DEVELOPMENT FREEZE
-I am currently inundated with my full time job and school. I will return to this project 3/21/2020
-
 # neuralink-bot
 Neuralink posses a robot capable of lacing a brain with "threads" containing electrodes. I am not sure if they posses the capability to automatically localize and avoid blood vessels while placing these threads. It appears that the surgery processes requries neurosurgeon supervision to select lacing sites that "dodge" blood vessels.
 
