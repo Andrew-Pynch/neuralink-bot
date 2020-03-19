@@ -7,7 +7,11 @@ This project started because Neuralink posses a robot capable of lacing a brain 
 
 
 # Cool Things I'm Working On Right Now
+
+
 ![](/image_manipulation/segmented_images/recombined_gifs/top_segs.gif)
+
+
 (Everything referenced)
 Before I can begin the exciting reinforcement learning, I need to setup a 
 playground where my bot can learn. Initially I was going to simulate blood vessels by drawing overlapping fractal trees that "kind of" simulated blood vessels. This fractal vessel simulation was done in pygame and had a couple of huge drawbacks. It was buggy, slow, and unrealistic.
@@ -20,6 +24,8 @@ Considering all the downside I decided to scrap all that work and start from scr
 4. Apply a nieve binary color mask to "reveal" blood vessels. 
 5. Save eached masked image into the appropriate directory (top, left, and right)
 6. Recombine folders of cropped and masked jpgs into gifs 
+
+
 ![](/image_manipulation/segmented_images/recombined_gifs/left_segs.gif)
 
 
@@ -40,4 +46,4 @@ This is where I will be challeneged to grow the most. While I understand the the
 What comes after this is unknown. I have no idea how well the learner will perform or what ides for continued improvement might reveal themselves
 
 # Tree Segmentation --> Blood Vessel Segmentation?
-As I was making my coffee this morning I had an idea for something crazy that just might work. I think if I were to take the top layers off of a seg net that had previously been trained to perform semantic segmentation on trees, I might be able to unfreeze that layer and retrain such a network to classify blood vessels with a few hundred labelled images? I am not sure on this one... I am only going to experiment with this after I have finished the simulation and trained the learner in the simulated environment. 
+If I were to take the top layers off of a seg net that had previously been trained to perform semantic segmentation on trees, I might be able to use that encoded knowledge to learn to segment blood vessels using a few hundred labelled images?? I am not sure on this one... I am only going to experiment with this after I have finished the simulation and trained the learner in the simulated environment. 
