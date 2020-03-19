@@ -1,2 +1,6 @@
 pygame==1.9.6
 Pillow
+gym
+matplotlib
+cv2
+fastai
