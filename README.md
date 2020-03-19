@@ -7,7 +7,11 @@ This project started because Neuralink posses a robot capable of lacing a brain 
 
 
 # Cool Things I'm Working On Right Now
+
+
 ![](/image_manipulation/segmented_images/recombined_gifs/top_segs.gif)
+
+
 (Everything referenced)
 Before I can begin the exciting reinforcement learning, I need to setup a 
 playground where my bot can learn. Initially I was going to simulate blood vessels by drawing overlapping fractal trees that "kind of" simulated blood vessels. This fractal vessel simulation was done in pygame and had a couple of huge drawbacks. It was buggy, slow, and unrealistic.
@@ -20,6 +24,8 @@ Considering all the downside I decided to scrap all that work and start from scr
 4. Apply a nieve binary color mask to "reveal" blood vessels. 
 5. Save eached masked image into the appropriate directory (top, left, and right)
 6. Recombine folders of cropped and masked jpgs into gifs 
+
+
 ![](/image_manipulation/segmented_images/recombined_gifs/left_segs.gif)
 
 
