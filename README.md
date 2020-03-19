@@ -1,41 +1,43 @@
-# Important Notice
-This README is out of date in terms of the scope of the project / what I have recently accomplished. I will update the readme to reflect current state / plans for development before 3/21/2020. Cheers!
-
 # neuralink-bot
-Neuralink posses a robot capable of lacing a brain with "threads" containing electrodes. I am not sure if they posses the capability to automatically localize and avoid blood vessels while placing these threads. It appears that the surgery processes requries neurosurgeon supervision to select lacing sites that "dodge" blood vessels.
+I am going to train a learner to select iamge reigons that maximize the distance from blood vessel areas. The process is meant to emulate the requirements that a robot performing neurosurgery might have to conform to when inserting electrodes into the brain
+
+This project started because Neuralink posses a robot capable of lacing a brain with "threads" containing electrodes. I am not sure however if they posses the capability to automatically localize and avoid blood vessels while placing these threads. It appears that the surgery processes requries neurosurgeon supervision to select lacing sites that "dodge" blood vessels.
 
 ![](https://media.giphy.com/media/Jr5RD7ns1m2dRKa8go/giphy.gif)
 
-## Gif Downloads
-I initially tried to convert the Neuralink gif I recorded from the launch event into individual fname_jpg files programmatically, but ended up resorting to https://ezgif.com/.
 
-## Roadmap
-NOTE: I have been reading lots of books and taking a MOOC on robotics and am coming to the conclusion that I need to reconsider the way I am trying to construct the simulation. Within the ethos of work smarter not harder, developing this simulation from scratch is seeming to be more of an impediment than it needs to be. 
+# Cool Things I'm Working On Right Now
+![](/image_manipulation/segmented_images/recombined_gifs/top_segs.gif)
+(Everything referenced)
+Before I can begin the exciting reinforcement learning, I need to setup a 
+playground where my bot can learn. Initially I was going to simulate blood vessels by drawing overlapping fractal trees that "kind of" simulated blood vessels. This fractal vessel simulation was done in pygame and had a couple of huge drawbacks. It was buggy, slow, and unrealistic.
 
-Once I finish up this term of school and am blessed with more freetime I think I am going to wipe the slate clean and start from scratch with some of the tools I have been learning over the last couple weeks
+Considering all the downside I decided to scrap all that work and start from scratch.
 
--1a. Develop simple 2 simulation loosely based off of Neuralinks Brain Surgery Process: X - WE ARE HERE
--1b. Train reinforcement learning algorithm to choose good "lace" selection sites
-Note: Nieve score function should encourage maximal distance from "vessels" and other lace that has already been placed.
+1. Video capture the microscope view pictured above from the Neuralink summer presentation
+2. Split the video into a folder of jpgs (1 for each frame of the video)
+3. Crop the top half, top left, and top right section of each image in the folder of extracted jpg files
+4. Apply a nieve binary color mask to "reveal" blood vessels. 
+5. Save eached masked image into the appropriate directory (top, left, and right)
+6. Recombine folders of cropped and masked jpgs into gifs 
+![](/image_manipulation/segmented_images/recombined_gifs/left_segs.gif)
 
--2a. Refactor simluation to be a fully rendered 3d env
--2b. Retrain model in 3d simulation
 
--3a. Request video footage of brain surgery from neuralink
--3b. Segment blood vessels within video footage
--3c. Retrain model on actual video footage provided by neuralink.
+# Roadmap
+## 1.) Develop Simulation Environment
+At the core of Reinforcement learning is the notion of feedback. Before a learned can learn, it needs an environment to do so. While the details are still fuzzy, I essentially need to create a simulation of the close of microscope brain view pictured above.
 
-# Rules
-- 60 Second Time Limit
-- 10 Threads To "Sew"
-- Maximize distance from blood vessels
-- Lose points if you collide with a "Blood Vessel"
+The basic requirements are
+1. Simulate Vascular Structure
+2. Simulate motion of vasculature due to heartbeat / breathing
+3. Simulate placing of neural lace within this dynamic environment.
+4. Score function: Higher score when distance from moving vessels is maxed? (this is subject to change) 
 
-# Play instructions
-- Movement = Arrow Keys
-- Place Neural Lace = BackSpace
+## 2.) Reinforcement Learning
+This is where I will be challeneged to grow the most. While I understand the theoretical elements of reinforcement learning, my practical knowledge is lacking. If I am to take Feynmans "What I cannot create I do not understand" maxim to heart, I really don't understand RL. This will be my first time performing RL in a novel environment. 
 
-# Using this repo
-To run any of the example games or the main surgery simulation run
-```pip install -r requirements.txt```
+## 3.) ?
+What comes after this is unknown. I have no idea how well the learner will perform or what ides for continued improvement might reveal themselves
 
+# Tree Segmentation --> Blood Vessel Segmentation?
+As I was making my coffee this morning I had an idea for something crazy that just might work. I think if I were to take the top layers off of a seg net that had previously been trained to perform semantic segmentation on trees, I might be able to unfreeze that layer and retrain such a network to classify blood vessels with a few hundred labelled images? I am not sure on this one... I am only going to experiment with this after I have finished the simulation and trained the learner in the simulated environment. 
