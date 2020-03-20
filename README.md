@@ -9,7 +9,7 @@ This project started because Neuralink posses a robot capable of lacing a brain 
 # Cool Things I'm Working On Right Now
 
 
-![](/Image_Segmentation/segmented_images/recombined_gifs/top_segs.gif)
+![](https://imgur.com/a/LXXIED7)
 
 
 Before I can begin the exciting reinforcement learning, I need to setup a 
@@ -25,7 +25,7 @@ Considering all the downside I decided to scrap all that work and start from scr
 6. Recombine folders of cropped and masked jpgs into gifs 
 
 
-![](/Image_Segmentation/segmented_images/recombined_gifs/left_segs.gif)
+![](https://imgur.com/a/fHGVa72)
 
 
 # Roadmap
