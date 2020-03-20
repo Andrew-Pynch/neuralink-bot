@@ -9,10 +9,9 @@ This project started because Neuralink posses a robot capable of lacing a brain 
 # Cool Things I'm Working On Right Now
 
 
-![](/Image_Segmentation/image_manipulation/segmented_images/recombined_gifs/top_segs.gif)
+![](/Image_Segmentation/segmented_images/recombined_gifs/top_segs.gif)
 
 
-(Everything referenced)
 Before I can begin the exciting reinforcement learning, I need to setup a 
 playground where my bot can learn. Initially I was going to simulate blood vessels by drawing overlapping fractal trees that "kind of" simulated blood vessels. This fractal vessel simulation was done in pygame and had a couple of huge drawbacks. It was buggy, slow, and unrealistic.
 
