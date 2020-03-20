@@ -3,7 +3,7 @@ I am going to train a learner to select iamge reigons that maximize the distance
 
 This project started because Neuralink posses a robot capable of lacing a brain with "threads" containing electrodes. I am not sure however if they posses the capability to automatically localize and avoid blood vessels while placing these threads. It appears that the surgery processes requries neurosurgeon supervision to select lacing sites that "dodge" blood vessels.
 
-![](https://media.giphy.com/media/Jr5RD7ns1m2dRKa8go/giphy.gif)
+![Alt Text](https://media.giphy.com/media/Jr5RD7ns1m2dRKa8go/giphy.gif)
 
 
 # Cool Things I'm Working On Right Now
@@ -25,7 +25,7 @@ Considering all the downside I decided to scrap all that work and start from scr
 6. Recombine folders of cropped and masked jpgs into gifs 
 
 
-![](https://imgur.com/a/fHGVa72)
+![Alt Text](https://imgur.com/a/fHGVa72)
 
 
 # Roadmap
