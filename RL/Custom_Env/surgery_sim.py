@@ -1,7 +1,7 @@
 import sys
 #sys.path.remove('/opt/ros/kinetic/lib.python2.7/dist-packages')
 
-import neur
+import neural_thread
 from helper_functions import *
 
 import time 
@@ -22,9 +22,10 @@ SIZE = 150 # Size of the thread
 
 NUM_EPISODES = 25000
 MOVE_PENALTY = 1
-RUPTURE_PENALY = 300
+COLLISION_PENALTY = 300
+AVOID_COLLISION_REWARD = 25
 
-epsilon = 0
+epsilon = 0.998
 EPS_DECAY = 0.9998 # Every episode will be epsilon * EPS_DECAY
 SHOW_EVERY = 500 # Render the simulation every 500 iterations
 
@@ -52,12 +53,7 @@ d = {1: (255, 175, 0),
 ###################
 if start_q_table is None:
     # initialize the q-table#
-    q_table = {}
-    for i in range(-SIZE+1, SIZE):
-        for ii in range(-SIZE+1, SIZE):
-            for iii in range(-SIZE+1, SIZE):
-                    for iiii in range(-SIZE+1, SIZE):
-                        q_table[((i, ii), (iii, iiii))] = [np.random.uniform(-5, 0) for i in range(4)]
+    q_table = np.random.rand(SIZE, SIZE)
 else:
     with open(start_q_table, "rb") as f:
         q_table = pickle.load(f)
@@ -68,6 +64,103 @@ else:
 episode_rewards = []
 
 for episode in range(NUM_EPISODES):
-    main_thread = thread.Thread(SIZE)
-    print(main_thread.__str__())
+    ########
+    # Render
+    ########
+    if episode % SHOW_EVERY == 0:
+        print(f"on #{episode}, epsilon is {epsilon}")
+        print(f"{SHOW_EVERY} ep mean: {np.mean(episode_rewards[-SHOW_EVERY:])}")
+        show = True 
+    else:
+        show = False
+
+    #####################
+    # Reward Calculations
+    #####################
+    episode_reward = 0
+    for i in range(200):
+        COLLISION = False
+        main_thread = neural_thread.Thread(SIZE)
+        distance_obj = neural_thread.Distances()
+
+        observation = int(main_thread.distance(VESSEL_IMG, distance_obj))
+
+        ##############
+        # EXPLOITATION
+        ##############
+        if np.random.random() > epsilon:
+            # Get the optimal action from the Q Table
+            action = np.argmax(q_table[observation])
+        else:
+            action = np.random.randint(0, 4)
+        # Take the action selected
+        main_thread.action(action)
+
+        ###################################
+        # CALCULATING REWARD
+        ###################################
+        if black_pixel_bool(VESSEL_IMG, main_thread.x, main_thread.y) == True:
+            reward = -COLLISION_PENALTY
+            COLLISION = True
+        else:
+            reward = -main_thread.distance(VESSEL_IMG, distance_obj)
+        
+        ##################
+        # NEXT OBSERVATION
+        ##################
+        new_observsation = int(main_thread.distance(VESSEL_IMG, distance_obj))
+        max_future_q = np.max(q_table[new_observsation])
+        current_q = q_table[observation][action]
+
+        if COLLISION == False:
+            new_q = AVOID_COLLISION_REWARD
+        else:
+            new_q = (1 - LEARNING_RATE) * current_q + LEARNING_RATE * (reward + DISCOUNT * max_future_q)
+        q_table[observation][action] = reward
+
+        ############################
+        # VISUALIZATION ON SHOWEVERY
+        ############################
+        if show:
+            center_coordinates = (main_thread.x, main_thread.y)
+            radius = 5
+            color = (0, 0, 255)
+            thickness = -1
+
+            image = cv2.circle(VESSEL_IMG, center_coordinates, radius, color, thickness)
+
+            cv2.imshow("Render", image)
+            if COLLISION == True or COLLISION == False:
+                # crummy code to hang at the end if we reach abrupt end for good reasons or not.
+                if cv2.waitKey(500) & 0xFF == ord('q'):
+                    break
+            else:
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break  
+        
+        episode_reward += reward
+        if COLLISION == True or COLLISION == False:
+            break
+
+    #################
+    # EPISODE METRICS
+    #################
+    print(f'EPISODE: {episode}| REWARD: {episode_reward}')
+
+    episode_rewards.append(episode_reward)
+    epsilon *= EPS_DECAY
+
+moving_avg = np.convolve(episode_rewards, np.ones((SHOW_EVERY,))/SHOW_EVERY, mode='valid')
+
+plt.plot([i for i in range(len(moving_avg))], moving_avg)
+plt.ylabel(f"Reward {SHOW_EVERY}ma")
+plt.xlabel("episode #")
+plt.show()
+
+with open(f"qtable-{int(time.time())}.pickle", "wb") as f:
+    pickle.dump(q_table, f)
+            
+        
+
+    
 

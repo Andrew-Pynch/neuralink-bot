@@ -1,9 +1,14 @@
-import sys
-sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
+try:
+    import sys
+    sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
+except:
+    print('okay')
 
 import cv2
 import math
 import numpy as np
+
+from helper_functions import *
 
 class Thread: # Note, often times in my writing I use thread and lace iterchangably to describe neural lace
     def __init__(self, SIZE):
@@ -56,23 +61,22 @@ class Thread: # Note, often times in my writing I use thread and lace iterchanga
         Arguments:
             vessel_image {[nparray]} -- [input image of segmented vasculature]
         """
+        # Compute all possible distances between self and other pixels
         for i in range(len(vessel_image)):
             for j in range(len(vessel_image)):
                 if black_pixel_bool(vessel_image, i, j) == True:
                     result = euc_dist([i, j], [self.y, self.x])
 
-                    distance_dict.add(result, [i, j])
+                    distance_dict.add((i, j), result)
         
-        # Get the coordinates of the closest vessel
-        keys_list = []
-        for key in distance_dict.keys():
-            keys_list.append(key)
-        
-        keys_list.sort()
-        keys_list[0]
+        running_min = min(distance_dict.values())
+        smallest_distance = [key for key in distance_dict if distance_dict[key] == running_min]
 
+        x = smallest_distance[0][0]
+        y = smallest_distance[0][1]
+           
         # Return the coordinates of the nearest vessel
-        return distance_dict[keys_list[0]]
+        return distance_dict.get((x, y))
 
 class Distances(dict):
     """Distance Dictionary Object"""
