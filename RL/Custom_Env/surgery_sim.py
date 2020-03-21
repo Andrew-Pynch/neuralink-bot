@@ -118,34 +118,29 @@ for episode in range(NUM_EPISODES):
             new_q = (1 - LEARNING_RATE) * current_q + LEARNING_RATE * (reward + DISCOUNT * max_future_q)
         q_table[observation][action] = reward
 
-        ############################
-        # VISUALIZATION ON SHOWEVERY
-        ############################
-        if show:
-            center_coordinates = (main_thread.x, main_thread.y)
-            radius = 5
-            color = (0, 0, 255)
-            thickness = -1
 
-            image = cv2.circle(VESSEL_IMG, center_coordinates, radius, color, thickness)
 
-            cv2.imshow("Render", image)
-            if COLLISION == True or COLLISION == False:
-                # crummy code to hang at the end if we reach abrupt end for good reasons or not.
-                if cv2.waitKey(500) & 0xFF == ord('q'):
-                    break
-            else:
-                if cv2.waitKey(1) & 0xFF == ord('q'):
-                    break  
         
         episode_reward += reward
         if COLLISION == True or COLLISION == False:
             break
 
+
+    ############################
+    # VISUALIZATION ON SHOWEVERY
+    ############################
+    implot = plt.imshow(VESSEL_IMG)
+    plt.scatter(x=main_thread.x, y=main_thread.y, c='g', s=40)
+    plt.savefig(f'renders/{episode}.jpg')
+    plt.clf()
+
+    
+
     #################
     # EPISODE METRICS
     #################
     print(f'EPISODE: {episode}| REWARD: {episode_reward}')
+    print(f'X: {main_thread.x} Y: {main_thread.y}')
 
     episode_rewards.append(episode_reward)
     epsilon *= EPS_DECAY
