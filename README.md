@@ -8,41 +8,40 @@ This project started because Neuralink posses a robot capable of lacing a brain 
 
 # Cool Things I'm Working On Right Now
 
+# Part 1
+## Learning Thread Placement W/ Q Learning
+Before I got fancy with any DQN or my new research interest HER(Heindsight Experience Replay), I decided to start with the most basic reinforcement learning algorithm.
+By performing color segementation of the video clip from the Neuralink presentation I produced a binary color mask which "sort of" reveals blood vessels. This is just a bodged together sollution until I can train a model to perform semantic segmentation of blood vessels (part 2)
 
-![](https://media2.giphy.com/media/iFCjVG8SWjjQqtUTMO/giphy.webp)
+![Alt Text](https://media.giphy.com/media/WRtuHhi0aqjzNImQxE/giphy.gif)
 
+After creating these binary masks, I further cropped them down to small squares so that I could run my Q Learning experiments efficiently. Here is a gif of the "learners" early exploration of
+the environment with the goal of maximizing its distance from blood vessels. 
 
-Before I can begin the exciting reinforcement learning, I need to setup a 
-playground where my bot can learn. Initially I was going to simulate blood vessels by drawing overlapping fractal trees that "kind of" simulated blood vessels. This fractal vessel simulation was done in pygame and had a couple of huge drawbacks. It was buggy, slow, and unrealistic.
+![Alt Text](https://media0.giphy.com/media/lqwO9rFre3Guf2pvLh/giphy.webp)
 
-Considering all the downside I decided to scrap all that work and start from scratch.
+Here is the reward the Q Table yielded over time 25,000 epochs.
 
-1. Video capture the microscope view pictured above from the Neuralink summer presentation
-2. Split the video into a folder of jpgs (1 for each frame of the video)
-3. Crop the top half, top left, and top right section of each image in the folder of extracted jpg files
-4. Apply a nieve binary color mask to "reveal" blood vessels. 
-5. Save eached masked image into the appropriate directory (top, left, and right)
-6. Recombine folders of cropped and masked jpgs into gifs 
+![Alt Text](https://github.com/Andrew-Pynch/neuralink-bot/blob/master/RL/Custom_Env/25000_epochs.png?raw=true)
 
+This was a great hands on learning experience with Q Learning which helped me cautify 
+the knowledge that had once been entirely theoretical
 
-![Alt Text](https://media3.giphy.com/media/KFuIuxQjhxln0UeTy9/giphy.webp)
+# Part 2
+## Sematic Segmentation of Blood Vessels & Max Distance Prediction
+Right now I am working on creating a model that can automatically segment blood vessels given an input image. Some work has been done in this area using a small dataset of eye vasculature within the [DRIVE](https://drive.grand-challenge.org/) dataset.
 
+Currently, this involves lots of manuall labelling to produce images like this.
+![Alt Text](https://i.imgur.com/4jfcB6A.jpg)
 
-# Roadmap
-## 1.) Develop Simulation Environment
-At the core of Reinforcement learning is the notion of feedback. Before a learned can learn, it needs an environment to do so. While the details are still fuzzy, I essentially need to create a simulation of the close of microscope brain view pictured above.
+Once the model is satisfactorially performant, I am going to compute 10 points within the image that are maximally distant from the pixles containing blood vessels. These point labels will then train a regression head to predict the coordinates of points within an input image that are maximally far away from blood vessels.
 
-The basic requirements are
-1. Simulate Vascular Structure
-2. Simulate motion of vasculature due to heartbeat / breathing
-3. Simulate placing of neural lace within this dynamic environment.
-4. Score function: Higher score when distance from moving vessels is maxed? (this is subject to change) 
+This will be similar to this model which was trained to predict where the center of a persons face was except in our case its predicting which areas maximize distance from vasculature. 
 
-## 2.) Reinforcement Learning
-This is where I will be challeneged to grow the most. While I understand the theoretical elements of reinforcement learning, my practical knowledge is lacking. If I am to take Feynmans "What I cannot create I do not understand" maxim to heart, I really don't understand RL. This will be my first time performing RL in a novel environment. 
+![Alt Text](https://i.imgur.com/jTeTGB1.png)
 
-## 3.) ?
-What comes after this is unknown. I have no idea how well the learner will perform or what ides for continued improvement might reveal themselves
+# Part 3
+## Advanced Reinforcement Learning approaches
+This whole project merely serves as a way for me to advance my Deep Learning skills while exploring something I am passionate about. To be honest, I have no idea which formulation of my problem statement will lead to the best system for selecting thread insertion sites.
 
-# Tree Segmentation --> Blood Vessel Segmentation?
-If I were to take the top layers off of a seg net that had previously been trained to perform semantic segmentation on trees, I might be able to use that encoded knowledge to learn to segment blood vessels using a few hundred labelled images?? I am not sure on this one... I am only going to experiment with this after I have finished the simulation and trained the learner in the simulated environment. 
+In this section I can going to explore advanced methods in Reinforcement Learning to see if RL formulations of the problem lead to better results the Q - Learning or Semantic Segmentation with coordinate regression. 
