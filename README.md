@@ -7,6 +7,16 @@ This project started because Neuralink posses a robot capable of lacing a brain 
 
 
 # Cool Things I'm Working On Right Now
+## Notice Of Temporary Development Freeze
+Part 2 of this project involves training a model to segment blood vessels out of an image. My early experiments with 100 manually labelled images extracted from the Neuralink presentation did not yield sufficent results. 
+
+I believe that in order to train a sufficiently capable model, two things will have to hapen. 
+1. Neuralink (or another research insitution) will need to supply with additional images of tissue containing blood vessels similar to the scale captured by the Neuralink robot during surgery
+2. Labelling images
+a. Buckle down and manually segmented thousands of images to extract the blood vessels from an image
+b. Pay someone else to perform this laborious labelling. Amazon Mechanical Turk?
+
+Either way, I feel the scope and scale of this stage of the project is beyond the resources (time and monetary) that I have available to me.
 
 # Part 1
 ## Learning Thread Placement W/ Q Learning
