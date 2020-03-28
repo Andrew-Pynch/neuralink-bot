@@ -1,5 +1,5 @@
 # Medium Blog Summary
-I summarized the results stage 1 of my reserach in a medium blogpost. Feel free to check it out for a high level overview!
+I summarized the results of stage 1 of my reserach in a medium blogpost. Feel free to check it out for a high level overview!
 [Teaching a Bot to Perform Neurosurgery, Part 1](https://medium.com/@andrewpynchbusiness/teaching-a-bot-to-perform-neurosurgery-part-1-13457d4da6f3)
 
 # neuralink-bot
