@@ -1,3 +1,7 @@
+# Medium Blog Summary
+I summarized the results of stage 1 of my reserach in a medium blogpost. Feel free to check it out for a high level overview!
+[Teaching a Bot to Perform Neurosurgery, Part 1](https://medium.com/@andrewpynchbusiness/teaching-a-bot-to-perform-neurosurgery-part-1-13457d4da6f3)
+
 # neuralink-bot
 I am going to train a learner to select iamge reigons that maximize the distance from blood vessel areas. The process is meant to emulate the requirements that a robot performing neurosurgery might have to conform to when inserting electrodes into the brain
 
@@ -7,7 +11,6 @@ This project started because Neuralink posses a robot capable of lacing a brain 
 
 
 # Cool Things I'm Working On Right Now
-
 # Part 1
 ## Learning Thread Placement W/ Q Learning
 Before I got fancy with any DQN or my new research interest HER(Heindsight Experience Replay), I decided to start with the most basic reinforcement learning algorithm.
@@ -28,6 +31,17 @@ This was a great hands on learning experience with Q Learning which helped me ca
 the knowledge that had once been entirely theoretical
 
 # Part 2
+## Notice Of Temporary Development Freeze
+Part 2 of this project involves training a model to segment blood vessels out of an image. My early experiments with 100 manually labelled images extracted from the Neuralink presentation did not yield sufficent results. 
+
+I believe that in order to train a sufficiently capable model, two things will have to hapen. 
+1. Neuralink (or another research insitution) will need to supply with additional images of tissue containing blood vessels similar to the scale captured by the Neuralink robot during surgery
+2. Labelling images
+a. Buckle down and manually segmented thousands of images to extract the blood vessels from an image
+b. Pay someone else to perform this laborious labelling. Amazon Mechanical Turk?
+
+Either way, I feel the scope and scale of this stage of the project is beyond the resources (time and monetary) that I have available to me.
+
 ## Sematic Segmentation of Blood Vessels & Max Distance Prediction
 Right now I am working on creating a model that can automatically segment blood vessels given an input image. Some work has been done in this area using a small dataset of eye vasculature within the [DRIVE](https://drive.grand-challenge.org/) dataset.
 
