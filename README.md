@@ -1,20 +1,21 @@
-# Medium Blog Summary
-I summarized the results of stage 1 of my reserach in a medium blogpost. Feel free to check it out for a high level overview!
-[Teaching a Bot to Perform Neurosurgery, Part 1](https://medium.com/@andrewpynchbusiness/teaching-a-bot-to-perform-neurosurgery-part-1-13457d4da6f3)
 
 # neuralink-bot
-I am going to train a learner to select iamge reigons that maximize the distance from blood vessel areas. The process is meant to emulate the requirements that a robot performing neurosurgery might have to conform to when inserting electrodes into the brain
 
-This project started because Neuralink posses a robot capable of lacing a brain with "threads" containing electrodes. I am not sure however if they posses the capability to automatically localize and avoid blood vessels while placing these threads. It appears that the surgery processes requries neurosurgeon supervision to select lacing sites that "dodge" blood vessels.
+## Import Items:
+- Full disclosure: I am not currently associated with neuralink and purely worked on this project out of excitement about neuralinks engineer efforts, and their mission to better connect humans and computers through brain computer interfaces.
+- Reinforcement learning definitely was not the ideal sollution to this problem. I just wanted an excuse to mess around with RL and hopefully learn a thing or two 😄
+
+I am trying to train a learner to select iamge reigons that maximize the distance from areas of an image containing blood vessels. The process is meant to emulate the requirements that a robot performing neurosurgery might have to conform to when inserting electrodes into the brain.
+
+This project started because Neuralink possess a robot capable of lacing a brain with "threads" containing electrodes. It appears that the surgery process requries neurosurgeon supervision to select lacing sites that "dodge" blood vessels. 
 
 ![Alt Text](https://media0.giphy.com/media/Jr5RD7ns1m2dRKa8go/200.webp)
-
 
 # Cool Things I'm Working On Right Now
 # Part 1
 ## Learning Thread Placement W/ Q Learning
 Before I got fancy with any DQN or my new research interest HER(Heindsight Experience Replay), I decided to start with the most basic reinforcement learning algorithm.
-By performing color segementation of the video clip from the Neuralink presentation I produced a binary color mask which "sort of" reveals blood vessels. This is just a bodged together sollution until I can train a model to perform semantic segmentation of blood vessels (part 2)
+By performing color segementation of the video clip from the Neuralink presentation I produced a binary color mask which "sort of" reveals blood vessels 😅. This is just a bodged together sollution until I can train a model to perform semantic segmentation of blood vessels (part 2)
 
 ![Alt Text](https://media.giphy.com/media/WRtuHhi0aqjzNImQxE/giphy.gif)
 
@@ -31,13 +32,13 @@ This was a great hands on learning experience with Q Learning which helped me ca
 the knowledge that had once been entirely theoretical
 
 # Part 2
-## Notice Of Temporary Development Freeze
+## Notice Of Temporary Development Freeze - I.E This was really hard and so I stopped working on it 😆
 Part 2 of this project involves training a model to segment blood vessels out of an image. My early experiments with 100 manually labelled images extracted from the Neuralink presentation did not yield sufficent results. 
 
 I believe that in order to train a sufficiently capable model, two things will have to hapen. 
 1. Neuralink (or another research insitution) will need to supply with additional images of tissue containing blood vessels similar to the scale captured by the Neuralink robot during surgery
 2. Labelling images
-a. Buckle down and manually segmented thousands of images to extract the blood vessels from an image
+a. Buckle down and manually segmented thousands of images to extract the blood vessels from an image?
 b. Pay someone else to perform this laborious labelling. Amazon Mechanical Turk?
 
 Either way, I feel the scope and scale of this stage of the project is beyond the resources (time and monetary) that I have available to me.
