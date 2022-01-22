@@ -2,10 +2,10 @@
 # neuralink-bot
 
 ## Import Items:
-- Full disclosure: I am not currently associated with neuralink and purely worked on this project out of excitement about neuralinks engineer efforts, and their mission to better connect humans and computers through brain computer interfaces.
-- Reinforcement learning definitely was not the ideal sollution to this problem. I just wanted an excuse to mess around with RL and hopefully learn a thing or two 😄
+- Full disclosure: I am not currently associated with neuralink and purely worked on this project purely out of excitement about neuralinks engineering efforts, and their mission to better connect humans and computers through brain computer interfaces.
+- Reinforcement learning definitely was not the ideal sollution to part 1 of this problem. I just wanted an excuse to mess around with RL and hopefully learn a thing or two 😄
 
-I am trying to train a learner to select iamge reigons that maximize the distance from areas of an image containing blood vessels. The process is meant to emulate the requirements that a robot performing neurosurgery might have to conform to when inserting electrodes into the brain.
+I am trying to train a learner to select image reigons that maximize the distance from areas of an image containing blood vessels. The process is meant to emulate the requirements that a robot performing neurosurgery might have to conform to when inserting electrodes into the brain.
 
 This project started because Neuralink possess a robot capable of lacing a brain with "threads" containing electrodes. It appears that the surgery process requries neurosurgeon supervision to select lacing sites that "dodge" blood vessels. 
 
