@@ -136,8 +136,11 @@ def score_cumulative(lace_list, vessel_list, score):
     # for point in vessel_list:
     #     point = tuple(point)
 
-    # Compute the distance between each point and every other point in the list
-    lace_distance_list = [compute_euclidean(*combo) for combo in combinations(lace_list,2)]
+    # Compute the distance between the most recently placed lace and all previously placed laces
+    lace_distance_list = []
+    if len(lace_list) > 1:
+        last_lace = tuple(lace_list[-1])
+        lace_distance_list = [compute_euclidean(last_lace, tuple(p)) for p in lace_list[:-1]]
 
     score += int(sum(lace_distance_list))
 
